@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- Response of wm.server.schedule:getUserTaskList -->
+<Values version="2.0">
+  <value name="&lt;?xml version">'1.0' encoding='UTF-8'?&gt;&lt;Values version='2.0'
+
+</value>
+  <array name="tasks" type="record" depth="1">
+    <record javaclass="com.wm.util.Values">
+      <value name="type">repeat</value>
+      <value name="name">wm.monitor.admin:imageCleanup</value>
+      <value name="service">wm.monitor.admin:imageCleanup</value>
+      <value name="target">MCJWI01.eur.ad.sag</value>
+      <value name="lateness">0</value>
+      <value name="latenessAction">0</value>
+      <value name="nextRun">1506114321000</value>
+      <value name="msDelta">131565</value>
+      <value name="interval">300000</value>
+      <value name="oid">3ffff920-8411-11e7-a04b-ffffffffec8d</value>
+      <value name="execState">ready</value>
+      <value name="schedState">unexpired</value>
+      <value name="doNotOverlap">true</value>
+      <value name="startDate">1503059528114</value>
+      <value name="endDate">-1</value>
+      <value name="minuteMask">0</value>
+      <value name="hourMask">0</value>
+      <value name="dayOfMonthMask">0</value>
+      <value name="monthMask">0</value>
+      <value name="dayOfWeekMask">0</value>
+      <value name="runAsUser">Administrator</value>
+    </record>
+  </array>
+  <array name="extTasks" type="record" depth="1">
+  </array>
+</Values>

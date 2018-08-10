@@ -1,0 +1,41 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <parent>
+  	<groupId>com.github.jochenw.rcm</groupId>
+  	<artifactId>icm-parent</artifactId>
+  	<version>0.1-SNAPSHOT</version>
+  	<relativePath>../pom.xml</relativePath>
+  </parent>
+  <artifactId>icm-isclient</artifactId>
+  <dependencies>
+  	<dependency>
+  		<groupId>com.wm</groupId>
+  		<artifactId>wm-isclient</artifactId>
+  		<version>9.8.0.0000-0247</version>
+  	</dependency>
+  	<dependency>
+  		<groupId>junit</groupId>
+  		<artifactId>junit</artifactId>
+  		<version>4.12</version>
+  		<scope>test</scope>
+  	</dependency>
+  	<dependency>
+  		<groupId>org.apache.ws.commons.util</groupId>
+  		<artifactId>ws-commons-util</artifactId>
+  		<version>1.0.2</version>
+  	</dependency>
+  </dependencies>
+  <name>RCM (IsClient)</name>
+  <build>
+    <testResources>
+      <testResource>
+        <directory>src/test/resources</directory>
+        <filtering>false</filtering>
+      </testResource>
+      <testResource>
+        <directory>src/test/filtered-resources</directory>
+        <filtering>true</filtering>
+      </testResource>
+    </testResources>
+  </build>
+</project>

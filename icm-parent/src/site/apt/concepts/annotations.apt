@@ -1,0 +1,68 @@
+	--------------------
+	Concepts/Annotations
+	--------------------
+
+Annotations
+
+    An annotation is a short text fragment, which provides information to RCM. If you know, what
+    {{{https://en.wikipedia.org/wiki/Java_annotation}Java annotations}} are, then you will grab the
+    idea intuitively: RCM annotations are, what Java annotations are, except that they may appear
+    in arbitrary text files.
+
+* Syntax
+
+    An annotation begins with the '@' character, followed by the annotations name, and the character
+    '(', an opening parenthesis '('. The annotation ends with the character ')', a closing parenthesis.
+    Within the parentheses, a set of attributes can be specified, like this: <<<attr1="value1",
+    attr2='value2'>>>. The values may be surrounded by either singele, or double quotes. The values are
+    specified like Java strings: You may use the backslash as an escape character (as in \\, \r, \", etc.)
+    or, you may use \u for embedding arbitrary unicode chracters, as in <<<\uFFFF>>>. So, for example, an
+    annotation might look like this:
+
++-----------------------
+@IcmChange(name="Create Table", type="sql", version="0.0.1", description="Creates the test table")
++-----------------------
+
+    The example demonstrates an annotation, named "RcmResource", with the attributes "name", "type",
+    "version", and "description".
+
+    Another example:
+
++-----------------------
+@Attribute(name="Attribute Name", value="Attribute Value")
++-----------------------
+
+   Here we have an annotation named "Attribute" with the attributes "name", and "value".
+
+* Valid annotations
+
+  The following annotations are recognized by RCM:
+
+    * The "IcmChange" annotation indicates, that a file contains a resource, which is being processed
+      by RCM. An example can be found above, other examples are available {{{../first_example.html}here}}.
+
+      An IcmChange annotation <<must>> have the following attributes:
+
+        * The resource "name", an arbitrary string, which serves as identification to humans.
+
+        * The resource "type", which identifies the plugin, which is used to install the resource. The
+          plugin must recognize the type, so details can be found in the plugins documentation. As of
+          this writing, the following types, and the respective plugins, are available as a part of
+          RCM Core:
+
+            * "sql" - An SQL script, which contains SQL statements, that are being executed against a
+                      database.
+
+            * "activemq" - An XML file, which specifies one, or more administration operations for the
+                           ActiveMQ JMS server.
+
+            * "class:FULLY_QUALIFIED_CLASSNAME" - A custom Java class, which is being invoked to perform
+                                                  a custom installation action.
+ 
+            * "groovy" - A Groovy script, which is being invoked to perform a custom installation
+                         action.
+
+    * The "Attribute" annotation specifies an additional attribute (other than "name", "type", or
+      "version"). Attribute annotations serve as an additional configuration hint to the plugin, which
+      processes the change. Example: The SqlScriptResourceInstaller uses the "prefix" attribute to
+      select a set of properties, that configure the JDBC connection.

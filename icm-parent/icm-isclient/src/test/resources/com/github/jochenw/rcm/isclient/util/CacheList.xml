@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Response of wm.server.ehcache.admin:getCaches -->
+<Values version="2.0">
+  <value name="cacheManagerName">SoftwareAG.IS.ART</value>
+  <value name="&lt;?xml version">'1.0' encoding='UTF-8'?&gt;&lt;Values version='2.0'
+
+</value>
+  <array name="caches" type="record" depth="1">
+    <record javaclass="com.wm.util.Values">
+      <value name="cacheName">ListenerDataStore</value>
+      <value name="enabled">true</value>
+      <value name="isInternal">true</value>
+      <value name="maxMemoryOffHeap"></value>
+    </record>
+    <record javaclass="com.wm.util.Values">
+      <value name="cacheName">ListenerStateStore</value>
+      <value name="enabled">true</value>
+      <value name="isInternal">true</value>
+      <value name="maxMemoryOffHeap"></value>
+    </record>
+  </array>
+</Values>

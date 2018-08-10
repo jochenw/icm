@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<changes xmlns="http://namespaces.github.com/jochenw/rcm/core/schema/tfe/1.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://namespaces.github.com/jochenw/rcm/core/schema/tfe/1.0.0 ../../../../../../../../../main/resources/com/github/jochenw/rcm/core/schema/tfe.xsd ">
+  <replace to="--&gt;&lt;AssetNavigatorConfigurations&gt;" from="&lt;AssetNavigatorConfigurations&gt;"/>
+  <replace to="&lt;/CLLConfigurations&gt;" from="--&gt; &lt;/CLLConfigurations&gt;"/>
+  <insert location="before" find="&lt;/UseCases&gt;">
+    <content><![CDATA[				<UseCase id="DemoView" rootQueryId="getRootForDemoView" defaultChart="TreeChart" applicableChartTypes="TreeChart.SunBurst,Icicle">Demo View</UseCase>]]></content></insert>
+</changes>

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jxb:bindings version="1.0"
+                   xmlns:jxb="http://java.sun.com/xml/ns/jaxb"
+                   xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <jxb:bindings schemaLocation="exec.xsd">
+        <jxb:schemaBindings>
+            <jxb:package name="com.github.jochenw.icm.core.plugins.schema.exec"/>
+        </jxb:schemaBindings>
+    </jxb:bindings>
+</jxb:bindings>

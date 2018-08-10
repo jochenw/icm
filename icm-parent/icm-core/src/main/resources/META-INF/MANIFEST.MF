@@ -1,0 +1,8 @@
+Manifest-Version: 1.0
+
+Name: com/github/jochenw/rcm/core
+Implementation-Title: rcm-core
+Implementation-Version: 0.1
+Implementation-Vendor: "Jochen Wiedmann (jochen.wiedmann@gmail.com)"
+
+

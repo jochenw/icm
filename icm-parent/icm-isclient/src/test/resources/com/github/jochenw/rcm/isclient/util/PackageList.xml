@@ -1,0 +1,228 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- Response of wm.server.packages:packageList -->
+<Values version="2.0">
+  <value name="&lt;?xml version">'1.0' encoding='UTF-8'?&gt;&lt;Values version='2.0'
+
+</value>
+  <array name="packages" type="record" depth="1">
+    <record javaclass="wm.server.packages$1">
+      <value name="name">Default</value>
+      <value name="enabled">true</value>
+      <value name="loadok">0</value>
+      <value name="pkgType">1</value>
+      <value name="loaderr">0</value>
+      <value name="loadwarning">0</value>
+      <Boolean name="subsystem">false</Boolean>
+    </record>
+    <record javaclass="wm.server.packages$1">
+      <value name="name">Scratch</value>
+      <value name="enabled">true</value>
+      <value name="loadok">1</value>
+      <value name="pkgType">1</value>
+      <value name="loaderr">0</value>
+      <value name="loadwarning">0</value>
+      <Boolean name="subsystem">false</Boolean>
+    </record>
+    <record javaclass="wm.server.packages$1">
+      <value name="name">WmAgileAppsDeployer</value>
+      <value name="enabled">true</value>
+      <value name="loadok">87</value>
+      <value name="pkgType">1</value>
+      <value name="loaderr">0</value>
+      <value name="loadwarning">0</value>
+      <Boolean name="subsystem">false</Boolean>
+    </record>
+    <record javaclass="wm.server.packages$1">
+      <value name="name">WmART</value>
+      <value name="enabled">true</value>
+      <value name="loadok">167</value>
+      <value name="pkgType">1</value>
+      <value name="loaderr">0</value>
+      <value name="loadwarning">0</value>
+      <Boolean name="subsystem">false</Boolean>
+    </record>
+    <record javaclass="wm.server.packages$1">
+      <value name="name">WmARTExtDC</value>
+      <value name="enabled">true</value>
+      <value name="loadok">8</value>
+      <value name="pkgType">1</value>
+      <value name="loaderr">0</value>
+      <value name="loadwarning">0</value>
+      <Boolean name="subsystem">false</Boolean>
+    </record>
+    <record javaclass="wm.server.packages$1">
+      <value name="name">WmAssetPublisher</value>
+      <value name="enabled">true</value>
+      <value name="loadok">30</value>
+      <value name="pkgType">1</value>
+      <value name="loaderr">0</value>
+      <value name="loadwarning">0</value>
+      <Boolean name="subsystem">false</Boolean>
+    </record>
+    <record javaclass="wm.server.packages$1">
+      <value name="name">WmBrokerDeployer</value>
+      <value name="enabled">true</value>
+      <value name="loadok">86</value>
+      <value name="pkgType">1</value>
+      <value name="loaderr">0</value>
+      <value name="loadwarning">0</value>
+      <Boolean name="subsystem">false</Boolean>
+    </record>
+    <record javaclass="wm.server.packages$1">
+      <value name="name">WmBusinessRules</value>
+      <value name="enabled">true</value>
+      <value name="loadok">193</value>
+      <value name="pkgType">1</value>
+      <value name="loaderr">0</value>
+      <value name="loadwarning">0</value>
+      <Boolean name="subsystem">true</Boolean>
+      <value name="product_id">brmspackage</value>
+    </record>
+    <record javaclass="wm.server.packages$1">
+      <value name="name">WmCloud</value>
+      <value name="enabled">true</value>
+      <value name="loadok">35</value>
+      <value name="pkgType">1</value>
+      <value name="loaderr">0</value>
+      <value name="loadwarning">0</value>
+      <Boolean name="subsystem">false</Boolean>
+    </record>
+    <record javaclass="wm.server.packages$1">
+      <value name="name">WmDeployer</value>
+      <value name="enabled">true</value>
+      <value name="loadok">546</value>
+      <value name="pkgType">1</value>
+      <value name="loaderr">0</value>
+      <value name="loadwarning">0</value>
+      <Boolean name="subsystem">false</Boolean>
+    </record>
+    <record javaclass="wm.server.packages$1">
+      <value name="name">WmDesigner</value>
+      <value name="enabled">true</value>
+      <value name="loadok">262</value>
+      <value name="pkgType">1</value>
+      <value name="loaderr">0</value>
+      <value name="loadwarning">0</value>
+      <Boolean name="subsystem">false</Boolean>
+    </record>
+    <record javaclass="wm.server.packages$1">
+      <value name="name">WmFlatFile</value>
+      <value name="enabled">true</value>
+      <value name="loadok">41</value>
+      <value name="pkgType">1</value>
+      <value name="loaderr">0</value>
+      <value name="loadwarning">0</value>
+      <Boolean name="subsystem">false</Boolean>
+    </record>
+    <record javaclass="wm.server.packages$1">
+      <value name="name">WmISExtDC</value>
+      <value name="enabled">true</value>
+      <value name="loadok">12</value>
+      <value name="pkgType">1</value>
+      <value name="loaderr">0</value>
+      <value name="loadwarning">0</value>
+      <Boolean name="subsystem">false</Boolean>
+    </record>
+    <record javaclass="wm.server.packages$1">
+      <value name="name">WmJDBCAdapter</value>
+      <value name="enabled">true</value>
+      <value name="loadok">14</value>
+      <value name="pkgType">1</value>
+      <value name="loaderr">0</value>
+      <value name="loadwarning">0</value>
+      <Boolean name="subsystem">false</Boolean>
+    </record>
+    <record javaclass="wm.server.packages$1">
+      <value name="name">WmMonitor</value>
+      <value name="enabled">true</value>
+      <value name="loadok">353</value>
+      <value name="pkgType">1</value>
+      <value name="loaderr">0</value>
+      <value name="loadwarning">0</value>
+      <Boolean name="subsystem">true</Boolean>
+      <value name="product_id">Monitor</value>
+    </record>
+    <record javaclass="wm.server.packages$1">
+      <value name="name">WmNUMDeployer</value>
+      <value name="enabled">true</value>
+      <value name="loadok">87</value>
+      <value name="pkgType">1</value>
+      <value name="loaderr">0</value>
+      <value name="loadwarning">0</value>
+      <Boolean name="subsystem">false</Boolean>
+    </record>
+    <record javaclass="wm.server.packages$1">
+      <value name="name">WmPRT</value>
+      <value name="enabled">true</value>
+      <value name="loadok">193</value>
+      <value name="pkgType">1</value>
+      <value name="loaderr">0</value>
+      <value name="loadwarning">0</value>
+      <Boolean name="subsystem">false</Boolean>
+    </record>
+    <record javaclass="wm.server.packages$1">
+      <value name="name">WmPublic</value>
+      <value name="enabled">true</value>
+      <value name="loadok">627</value>
+      <value name="pkgType">1</value>
+      <value name="loaderr">0</value>
+      <value name="loadwarning">0</value>
+      <Boolean name="subsystem">false</Boolean>
+    </record>
+    <record javaclass="wm.server.packages$1">
+      <value name="name">WmRoot</value>
+      <value name="enabled">true</value>
+      <value name="loadok">1197</value>
+      <value name="pkgType">1</value>
+      <value name="loaderr">0</value>
+      <value name="loadwarning">0</value>
+      <Boolean name="subsystem">false</Boolean>
+    </record>
+    <record javaclass="wm.server.packages$1">
+      <value name="name">WmServiceMock</value>
+      <value name="enabled">true</value>
+      <value name="loadok">8</value>
+      <value name="pkgType">1</value>
+      <value name="loaderr">0</value>
+      <value name="loadwarning">0</value>
+      <Boolean name="subsystem">false</Boolean>
+    </record>
+    <record javaclass="wm.server.packages$1">
+      <value name="name">WmTomcat</value>
+      <value name="enabled">false</value>
+      <value name="loadok">0</value>
+      <value name="pkgType">1</value>
+      <value name="loaderr">0</value>
+      <value name="loadwarning">0</value>
+      <Boolean name="subsystem">false</Boolean>
+    </record>
+    <record javaclass="wm.server.packages$1">
+      <value name="name">WmVCS</value>
+      <value name="enabled">true</value>
+      <value name="loadok">32</value>
+      <value name="pkgType">1</value>
+      <value name="loaderr">0</value>
+      <value name="loadwarning">0</value>
+      <Boolean name="subsystem">false</Boolean>
+    </record>
+    <record javaclass="wm.server.packages$1">
+      <value name="name">WmWin32</value>
+      <value name="enabled">false</value>
+      <value name="loadok">0</value>
+      <value name="pkgType">2</value>
+      <value name="loaderr">0</value>
+      <value name="loadwarning">0</value>
+      <Boolean name="subsystem">false</Boolean>
+    </record>
+    <record javaclass="wm.server.packages$1">
+      <value name="name">WmXSLT</value>
+      <value name="enabled">true</value>
+      <value name="loadok">15</value>
+      <value name="pkgType">1</value>
+      <value name="loaderr">0</value>
+      <value name="loadwarning">0</value>
+      <Boolean name="subsystem">false</Boolean>
+    </record>
+  </array>
+</Values>

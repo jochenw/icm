@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- @IcmChange(name="Ping Localhost", type="exec", version="0.0.1") -->
+<commands        xmlns="http://namespaces.github.com/jochenw/rcm/core/schema/exec/1.0.0"
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://namespaces.github.com/jochenw/rcm/core/schema/exec/1.0.0 resource:META-INF/rcm/schema/exec.xsd">
+  <command executable="ping">
+      <arg value="-c" if="!${os.windows}"/>
+      <arg value="5" if="!${os.windows}"/>
+      <arg value="localhost"/>
+  </command>
+</commands>

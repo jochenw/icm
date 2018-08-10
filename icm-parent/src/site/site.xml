@@ -1,0 +1,21 @@
+<project          xmlns="http://maven.apache.org/DECORATION/1.8.0"
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/DECORATION/1.8.0 http://maven.apache.org/xsd/decoration-1.8.0.xsd"
+                  name="RCM">
+  <bannerLeft>
+    <name>RCM</name>
+    <href>http://jochenw.github.io/rcm</href>
+  </bannerLeft>
+  <publishDate position="right"/>
+  <version position="right"/>
+  <body>
+    <menu name="RCM">
+      <item name="About" href="./index.html"/>
+      <item name="Index" href="./concepts.html"/>
+    </menu>
+    <menu name="Examples">
+      <item name="First Example" href="./first_example.html"/>
+    </menu>
+    <menu ref="reports"/>
+  </body>
+</project>

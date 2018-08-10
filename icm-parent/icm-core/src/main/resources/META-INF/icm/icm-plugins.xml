@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<icm-plugins xmlns="http://namespaces.github.com/jochenw/icm/icm-plugins/1.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://namespaces.github.com/jochenw/rcm/rcm-plugins/1.0.0 ../../com/github/jochenw/rcm/core/api/schema/rcm-plugins.xsd ">
+  <icm-plugin class="com.github.jochenw.icm.core.impl.plugins.AnnotationBasedResourceInfoProvider"/>
+  <icm-plugin class="com.github.jochenw.icm.core.api.plugins.SqlScriptChangeInstaller"/>
+  <icm-plugin class="com.github.jochenw.icm.core.api.plugins.JdbcContextProvider"/>
+  <icm-plugin class="com.github.jochenw.icm.core.impl.plugins.ClassExecutor"/>
+  <icm-plugin class="com.github.jochenw.icm.core.api.plugins.ActiveMqAdministrationPlugin"/>
+  <icm-plugin class="com.github.jochenw.icm.core.api.plugins.ActiveMqContextProvider"/>
+  <icm-plugin class="com.github.jochenw.icm.core.api.plugins.GroovyScriptChangeInstaller"/>
+  <icm-plugin class="com.github.jochenw.icm.core.api.plugins.TextFileEditingChangeInstaller"/>
+  <icm-plugin class="com.github.jochenw.icm.core.impl.plugins.ExecChangeInstaller"/>
+</icm-plugins>

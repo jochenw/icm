@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<Values version="2.0">
+  <Boolean name="boolean">false</Boolean>
+  <number name="integer" type="Integer">1</number>
+  <number name="long" type="Long">1</number>
+  <number name="short" type="Short">1</number>
+  <number name="byte" type="Byte">1</number>
+  <double name="double" type="Double">1.0</double>
+  <float name="float" type="Float">1.0</float>
+  <array name="stringList" type="value" depth="1">
+    <value>foo</value>
+    <value>bar</value>
+  </array>
+  <array name="documentList" type="record" depth="1">
+  </array>
+  <array name="objectList" type="value" depth="1">
+    <value>foo</value>
+    <value>bar</value>
+  </array>
+</Values>

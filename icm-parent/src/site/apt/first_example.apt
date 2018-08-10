@@ -1,0 +1,137 @@
+    ---------------
+    A first example
+    ---------------
+
+A first example
+
+  So, lets begin with a first example: When our application starts, we want the following things to happen:
+
+    * A table FOO must be created.
+
+    * Some records must be inserted into the table.
+
+    * Another table BAR must be created, which references FOO.
+
+  That said, let's create the following files:
+
+    * {{{#Creating_the_FOO_table}CreateFooTable.sql}}
+
+    * {{{#Inserting_data_into_the FOO_table}InsertDataIntoFoo.sql}}
+
+    * {{{#Creating_the_BAR_table}CreateTableBar.sql}}
+
+    * {{{#The_property_file}A property file}}
+
+  And finally, let's see how we use these files with RCM:
+  
+    * {{{#Running_RCM}Running RCM}}
+
+* Creating the FOO table
+
+  Here's the script <<<CreateFooTable.sql>>>.
+
++---------------------
+-- @IcmChange(name="Create Table", type="sql", version="0.0.1", description="Creates the test table")
+  The file CreateFooTable.sql
+
+-- @Attribute(name="prefix", value="jdbc")
+
+DROP TABLE IF EXISTS FOO;
+CREATE TABLE FOO (
+  id BIGINT NOT NULL PRIMARY KEY,
+  name VARCHAR(20) NOT NULL,
+  description VARCHAR(80) NOT NULL
+);
++---------------------
+
+    Note the following:
+
+    1. The first two lines are comment lines. They will be ignored, when the SQL script is being executed.
+
+    2. These two lines contain so-called {{{./concepts/annotations.html}annotations}}.
+       RCM uses these annotations to collect information about the script.
+
+    3. In particular, note the "type", and the "version" attributes,  that are being configured
+       as part of the <<@IcmChange>> annotation. These indicate, that the file contains an SQL script
+       (type=sql), and that it will be executed as the very first script (version="0.0.1", other scripts
+       will have bigger version numbers).
+
+* Inserting data into the FOO table
+
+  The file InsertDataIntoFoo.sql
+
++---------------------
+-- @IcmChange(name="Insert Foo Data", type="sql", version="0.0.2",
+--              description="Insert some test data into the FOO table.")
+
+INSERT INTO FOO (id, name, description) VALUES (1, 'Foo0', 'A FOO instance');
+INSERT INTO FOO (id, name, description) VALUES (2, 'Foo1', 'Another FOO instance');
+INSERT INTO FOO (id, name, description) VALUES (3, 'Foo2', 'Yet another FOO instance');
++---------------------
+
+
+* Creating the BAR table
+
+  Now to the file CreateBarTable.sql:
+
++---------------------
+-- @IcmChange(name="Create Bar Table", type="sql", version="0.0.3",
+--              description="Creates the BAR table.")
+
+DROP TABLE IF EXISTS BAR;
+Create Table BAR (
+    id BIGINT NOT NULL PRIMARY KEY,
+    fooId BIGINT NOT NULL,
+    name VARCHAR(30) NOT NULL,
+    CONSTRAINT FK_BAR_FOO FOREIGN KEY (fooId) REFERENCES FOO (id)
+);
+-- Insert a row into bar, which references "Foo0" (id=1)
+INSERT INTO BAR (id, fooId, name) VALUES (1, 1, 'A BAR instance');
++---------------------
+
+* Script execution order
+
+  Quite obviously, the three scripts cannot be executed in arbitrary order:
+
+    1. The second, and third script are referring to the FOO table. Hence, this table must be created first. As a consequence, the first script must be executed first.
+
+    2. The third script references data, which has been inserted into the FOO table. Thus, the second script must be executed before the third script.
+
+  In summary, we require the following order:
+
+    1. CreateFooTable.sql
+
+    2. InsertDataIntoFoo.sql
+
+    3. CreateBarTable.sql
+
+  Now the question: How do we ensure, that RCM observes that order? The answer is given by the @IcmChange annotations, and the "version" attribute: Scripts with a lower
+  version number are being executed first.
+
+* The property file
+
+  A last question: How is access to the database being configured? This is done by using a property file:
+
++---------------------
+jdbc.driver=org.apache.derby.jdbc.EmbeddedDriver
+# For Linux/Unix
+jdbc.dbDir=/var/lib/derby/MyDB
+# For Windows
+# jdbc.dbDir=C:/MyData/MyDB
+jdbc.baseUrl=jdbc:derby:directory:${jdbc.dbDir}
+jdbc.url=${jdbc.baseUrl};create=true
+jdbc.shutdownUrl=${jdbc.baseUrl};shutdown=true
++---------------------
+
+  For a detailed explanation of these properties, see {{{./concepts/SqlScriptResourceInstaller.html}SqlScriptResourceInstaller}}.
+
+* Running RCM
+
+  Assuming, that all these files are located in <<<src/main/rcm/MyFirstExample>>>, we could run RCM like this:
+
++---------------------
+   Rcm<RcmChangeNumber> rcm = Rcm.builder()
+                                 .properties("src/main/rcm/MyFirstExample/rcm.properties")
+                                 .resourceDirectory("src/main/rcm")
+                                 .
++---------------------

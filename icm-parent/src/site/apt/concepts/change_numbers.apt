@@ -1,0 +1,45 @@
+	---------------
+	Change numbers
+	---------------
+
+Change numbers
+
+    Version numbers are one of the core concepts of RCM. They are used to sort resources, thereby ensuring
+    that they become installed in the proper order.
+
+# The default
+
+    Out of the box, RCM supports change numbers, like <<0.2.0>>, or <<2345.6789.3>>. More formally, a change number must have the format
+    <<<N1.N2.N3...>>>, where N1, N2, N3, etc. are an unlimited sequence of integer numbers. Trailing zeroes are ignored: RCM does not
+    distinguish between <<0.2>>, and <<0.2.0>>. Classifiers like <<alpha>>, <<SNAPSHOT>>, or <<GA>> are unsupported.
+
+    If you create an RCM instance like this:
+
++----------------------------------
+    Rcm<RcmChangeNumber> = Rcm.builder()
+                         . ...  // Invoke configuration methods on the builder
+                         .build();
++----------------------------------
+
+    then this default implementation is what you get.
+
+# Alternative implementations
+
+    If you would like to have other version numbers (may be, because qualifiers like "alpha", or "beta", are soooo important to you :-),
+    you must prepare the following:
+
+    1.) A change number class, which is intended to replace RcmChangeNumber. This is basically a POJO.
+    2.) A so-called {{{../apidocs/com/github/jochenw/rcm/core/api/RcmChangeNumberHandler.html}change number handler}}. This is, what
+        RCM needs to interact with your POJOS. Mainly, it provides the ability to convert strings into change numbers, and vice versa.
+        Additionally, it can compare change numbers: This is required for sorting.
+
+    If you have these classes, then you can use them to create an RCM instance as follows:
+
++----------------------------------
+    Rcm<RcmChangeNumber> = Rcm.builder(MyChangeNumber.class, new MyChangeNumberHandler())
+                         . ...  // Invoke configuration methods on the builder
+                         .build();
++----------------------------------
+
+    Note, that this is basically just the same than using the default change numbers, except that you create the RcmBuilder in a slightly
+    different manner.

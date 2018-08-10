@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema     xmlns:xs="http://www.w3.org/2001/XMLSchema"
+        targetNamespace="http://namespaces.github.com/jochenw/rcm/core/schema/exec/1.0.0"
+              xmlns:tns="http://namespaces.github.com/jochenw/rcm/core/schema/exec/1.0.0"
+     elementFormDefault="qualified">
+  <xs:element name="commands">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="command" type="tns:TCommand" minOccurs="0" maxOccurs="unbounded"/>
+      </xs:sequence>
+      <xs:attributeGroup ref="tns:TExecAttributes"></xs:attributeGroup>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:complexType name="TCommand">
+    <xs:sequence minOccurs="0" maxOccurs="unbounded">
+      <xs:choice>
+        <xs:element name="arg">
+          <xs:complexType>
+            <xs:attributeGroup ref="tns:TArgAttributes"/>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="env">
+          <xs:complexType>
+            <xs:attribute name="name" type="xs:string" use="required"/>
+            <xs:attributeGroup ref="tns:TArgAttributes"/>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:sequence>
+    <xs:attribute name="executable" type="xs:string" use="required"/>
+    <xs:attributeGroup ref="tns:TExecAttributes"></xs:attributeGroup>
+  </xs:complexType>
+
+  <xs:attributeGroup name="TExecAttributes">
+    <xs:attribute name="dir" type="xs:string" use="optional"/>
+    <xs:attribute name="outputFile" type="xs:string" use="optional"/>
+    <xs:attribute name="outputFileAppend" type="xs:boolean" use="optional" default="false"/>
+    <xs:attribute name="errorOutputFile" type="xs:string" use="optional"/>
+    <xs:attribute name="errorOutputFileAppend" type="xs:boolean" use="optional" default="false"/>
+    <xs:attribute name="inputFile" type="xs:string" use="optional"/>
+    <xs:attribute name="inputCharset" type="xs:string" use="optional"/>
+    <xs:attribute name="extension" type="xs:string" use="optional"/>
+  </xs:attributeGroup>
+
+  <xs:attributeGroup name="TArgAttributes">
+    <xs:attribute name="value" type="xs:string" use="optional"/>
+    <xs:attribute name="location" type="xs:string" use="optional"/>
+    <xs:attribute name="tempFile" type="xs:string" use="optional"/>
+    <xs:attribute name="tempFileName" type="xs:string" use="optional"/>
+    <xs:attribute name="if" type="xs:string" use="optional"/>
+  </xs:attributeGroup>
+</xs:schema>

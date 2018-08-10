@@ -1,0 +1,958 @@
+<!-- Copyright 2004-2013 by Software AG
+Uhlandstrasse 12, D-64297 Darmstadt, GERMANY
+All rights reserved
+This software is the confidential and proprietary
+information of Software AG ('Confidential Information').
+You shall not disclose such Confidential Information and
+shall use it only in accordance with the terms of the license
+agreement you entered into with Software AG or its distributors.-->
+
+
+<!--
+CentraSite provides a layered approach for storing the various configurations. The layers are defined as follows:
+
+  User - This includes the configurations defined for a particular user(stored in DB)
+  Organization - This includes the configurations defined for a particular organization(DB)
+  Global - This includes the configurations commom for all organizations(DB)
+  Custom - This includes the user-specific configurations defined in the centrasite.xml file. The centrasite.xml file is located at <SAG_HOME>\CentraSite\cast\cswebapps\BusinessUI\custom\conf\.
+  System - This includes the default system configurations defined in the centrasite.xml file. <SAG_HOME>\CentraSite\cast\cswebapps\BusinessUI\system\conf\. This file should not be edited by any user other than the CentraSite Administrator.
+
+The 5-layered configuration is prioritized on the hierarchical order, whereby the user-specific configuration has the highest priority unless locked at a lower layer.
+
+If suppose a configuration is not defined in a particular layer, then the configurator picks the configuration defined in the immediate lower layer. As the system layer defines all the default configurations, it provides a fallback for all the layers above it.
+-->
+<GUIConfiguration>
+    <!-- CENTRASITE ACCESS URL CONFIGURATION -->
+
+    <!--
+    <CentraSite url="http://localhost:53305/CentraSite/CentraSite" lb_or_reverse_proxy_url="http://localhost:53307"/>
+    <SSL sslusage="yes" cert1="keystore" keystore="" keystoretype="PKCS12" keystorepassword="cscert" cert2="truststore" truststore="" truststoretype="PKCS12" truststorepassword="cscert" cert3="misc" csurl="https://localhost:53313/CentraSite/CentraSite"/>
+	<ContentSecurityPolicy></ContentSecurityPolicy>
+	<Communications>
+		<DefaultDomain>INTERNAL</DefaultDomain>
+	</Communications>
+	<ContentSecurityPolicy></ContentSecurityPolicy>
+    -->
+
+    <!--  DEFAULT LOCALE, LANGUAGE, DATEFORMAT AND TIMEFORMAT SETTINGS -->
+    <!--
+    <USER_LOCALE>en</USER_LOCALE>
+    <Language>en</Language>
+    <LastDateFormat>YYYY-MM-DD</LastDateFormat>
+    <LastTimeFormat>HH:MM:SS</LastTimeFormat>
+    <TIME_ZONE>-480</TIME_ZONE>
+    <TIME_ZONE_ID>America/Los_Angeles</TIME_ZONE_ID>
+    <DateFormats>
+        <Format id="DATE_DDPMMPYYYY">DD.MM.YYYY</Format>
+        <Format id="DATE_DDSMMSYYYY">DD/MM/YYYY</Format>
+        <Format id="DATE_MMSDDSYYYY">MM/DD/YYYY</Format>
+        <Format id="DATE_DDSMMPYYYY">DD/MM/YYYY</Format>
+        <Format id="DATE_YYYYMMMMDD">YYYY-MM-DD</Format>
+        <Format id="DATE_YYYYSMMSDD">YYYY/MM/DD</Format>
+        <Format id="DATE_DPMPYY">D.M.YY</Format>
+        <Format id="DATE_MSDSYY">M/D/YY</Format>
+        <Format id="DATE_DSMPYY">D/M/YY</Format>
+    </DateFormats>
+    <TimeFormats>
+        <Format id="TIME_HHCMMCSS">HH:MM:SS</Format>
+        <Format id="TIME_HHCMM">HH:MM</Format>
+        <Format id="TIME_HHCMMCSSAMPM">HH:MM:SS AMPM</Format>
+        <Format id="TIME_HHCMMAMPM">HH:MM AMPM</Format>
+    </TimeFormats>-->
+    <!-- ACCESS KEY EXPIRATION CONFIGURATION
+        Configuration related to expiration notification settings for access keys for consumers.-->
+    <!--<ExpiryNotificationSettings>
+        <ExpiredNotification subject="Access key has expired!" template="APIKeyExpiredNotification.html"/>
+        <AdvanceNotification subject="Access key about to expire!" template="APIKeyExpirationNotification.html"/>-->
+        <!--    Access keys would be scanned at this frequency.  example 24h/1d     -->
+        <!-- <SchedulerExecutionFrequency>12h </SchedulerExecutionFrequency> -->
+        <!--    X duration advance reminder notification about expiry. example 5d/1m                -->
+        <!--  <AdvanceNotificationInterval>5d </AdvanceNotificationInterval>
+    </ExpiryNotificationSettings>-->
+    <!--<AccessTokenPublishSettings>-->
+		<!-- Un-delivered API Keys and OAuth tokens will be delivered periodically  -->
+		<!-- Interval duration is minutes -->
+		<!-- Default polling interval is 120 minutes -->
+		<!-- <PollingInterval>120</PollingInterval>
+	</AccessTokenPublishSettings>-->
+	<!--<AccessTokenFetchSettings>-->
+    <!-- API Keys and OAuth request New, Renew, Revoke will be fetched periodically -->
+    <!-- Interval duration is minutes -->
+    <!-- Default fetching interval is 120 minutes -->
+    <!--<FetchingInterval>120</FetchingInterval>-->
+    <!--</AccessTokenFetchSettings>-->
+    <CLLConfigurations>
+    <!-- CENTRASITE LOGIC LAYER (CLL) CONFIGURATION
+      The configuration parameters of CentraSite Logic Layer -->
+        <!-- Common Property Attributes
+        @id - unique identifier for the element
+       Value/text that starts with INMCL is replaced with the value of i18n properties.
+        -->
+		<!--  Enables the CSA to see pending approvals for an asset even if they are not in the approver list -->
+		<!--
+		<AllowCSAToProxyApproval enabled="false"/>
+		-->
+        <!--  DIAGNOSTICS CONFIGURATION
+        Defines the configuration parameters to send a notification email on diagnostic information and help
+        For more information about diagnostics configuration, refer to the CentraSite online documentation's section "Administering the CentraSite Business UI -> Message Handling and Diagnostics" -->
+    <!--
+    <DiagnosticsConfiguration>
+          <EmailAddresses>
+          <EmailAddress id="defaultEmail">admin@softwareag.com</EmailAddress>
+          </EmailAddresses>
+          -->
+          <!-- The diagnostic email content is fetched from the template file that is specified in the attribute @name -->
+          <!-- <EmailTemplate id="defaultDiagnosticTemplate" name="DefaultDiagnostics.html" mimetype="html"></EmailTemplate> -->
+          <!-- The diagnostic email subject is fetched from the value specified here.
+          ${system.user.name} is replaced with the logged in username -->
+          <!-- <EmailPreSubject id="defaultSubject"> Diagnostic from ${system.user.name}</EmailPreSubject>
+        </DiagnosticsConfiguration> -->
+        <!--  REQUEST AN ACCOUNT CONFIGURATION
+        Defines the configuration parameters to send email notification when user registers a request for the CentraSite account -->
+        <!-- <RequestAnAccount> -->
+            <!-- @mailToRequest - a value set to "true" automatically sends the registration request notification to the requestor in addition to the CentraSite Administrator -->
+            <!--  <EmailTemplate mailToRequestor="true"> -->
+            <!-- The requestor email content is fetched from the given template file -->
+               <!--  <UserEmailTemplate>system/conf/RequestAccountUserEmailTemplate.html</UserEmailTemplate> -->
+                <!-- The Administrator email content is fetched from the given template file -->
+               <!--  <AdminEmailTemplate>system/conf/RequestAccountAdminEmailTemplate.html</AdminEmailTemplate>
+                <CSAdminEmail>admin@softwareag.com</CSAdminEmail>
+                <CSAdminSubject>CentraSite account registration request received.</CSAdminSubject>
+                <UserSubject>CentraSite account registration request received for user.</UserSubject>
+            </EmailTemplate>
+        </RequestAnAccount> -->
+        <!-- ACTIVITIES CONFIGURATION -->
+        <!-- Properties for customizing the list of activities available with CentraSite.
+         This includes a set of predefined activities. In addition a user can define custom activities.
+         Adding  a custom activity simply enables this activity in the CentraSite Logic Layer. In order to have a UI rendering of this activity, user should specify additional properties as stated in the BUSINESS USER INTERFACE CONFIGURATION section.
+        For information about adding a custom activity, refer to the CentraSite online documentation's section "CentraSite Business User Interface Pluggable Architecture -> Customizing the Welcome Page -> Welcome Page Configuration -> Activities"  -->
+        <!-- <Activities> -->
+        <!-- @class - refers to the implementation class of com.softwareag.centrasite.api.activity.Activity Interface -->
+          <!--   <Activity id="Create Assets" class="com.softwareag.centrasite.api.activity.impl.CreateAssetActivityImpl">INMCL_ACTIVITY_CREATE_ASSET</Activity>
+            <Activity id="Global Reports" class="com.softwareag.centrasite.api.activity.impl.GlobalReportActivityImpl">INMCL_ACTIVITY_GLOBAL_REPORTS</Activity>
+            <Activity id="Manage Organizations" class="com.softwareag.centrasite.api.activity.impl.ManageOrganizationsActivityImpl">INMCL_ACTIVITY_MANAGE_ORGANIZATIONS</Activity>
+            <Activity id="ManageGovernanceRules" class="com.softwareag.centrasite.api.activity.impl.ManageGovernanceRulesActivityImpl">INMCL_ACTIVITY_MANAGE_GOVERNANCE_RULES</Activity>
+            <Activity id="ManageTaxonomies" class="com.softwareag.centrasite.api.activity.impl.ManageTaxonomiesActivityImpl">INMCL_ACTIVITY_MANAGE_TAXONOMIES</Activity>
+            <Activity id="Asset Navigator" class="com.softwareag.centrasite.api.activity.impl.AssetNavigatorActivityImpl">INMCL_ACTION_ASSETNAVIGATOR</Activity>
+        </Activities> -->
+
+        <!-- SEARCH SCOPES CONFIGURATION -->
+        <!-- Properties for customizing the list of search scopes available with CentraSite.
+        This includes a set of predefined search scopes. In addition a user can define a custom search scope by implementing the com.softwareag.centrasite.api.csom.search.CSOSearchScope Interface.
+        Adding a custom scope simply enables this scope in the CentraSite Logic Layer. In order to have a UI rendering of this scope, user should specify additional properties as stated in the BUSINESS USER INTERFACE (BUI) CONFIGURATION section.
+        For information about adding a custom search scope, refer to the CentraSite online documentation's section "CentraSite Business User Interface Pluggable Architecture -> Customizing the Welcome Page -> Welcome Page Configuration -> Search Scopes" -->
+       <!--  <Search>
+            <SearchScopes> -->
+            <!-- @isExpandable - a value set to "true" enables the + icon in the Browse popup of Type filter
+                @class - denotes the implementation class of com.softwareag.centrasite.api.csom.search.CSOSearchScope Interface
+                @exclude - denotes the concept id. This simply ignores instances of the specified scope type in the search results page, provided the instance is classified with the specified concept id.
+                @include - denotes the concept id. This simply includes instances of the specified scope type in the search results page, provided the instance is classified with the specified concept id.
+                @types =  lists of asset types as comma seperated values.
+                The search results page contains instances of the specified types when the particular scope is selected.
+            -->
+            <!-- The Assets scope includes the "top level types" -->
+               <!--  <SearchScope id="Everything" isExpandable="true" class="com.softwareag.centrasite.api.csom.search.impl.EverythingScope" exclude="uddi:7613515f-77eb-11dd-bc9f-f62b6cf80b00">INMCL_STR_Everything</SearchScope>
+                <SearchScope id="Assets" isExpandable="false" class="com.softwareag.centrasite.api.csom.search.impl.AssetScope" exclude="uddi:7613515f-77eb-11dd-bc9f-f62b6cf80b00">INMCL_STR_Assets</SearchScope> -->
+            <!-- The Everything scope includes the "top level types" and "searchable" types -->
+          <!--   </SearchScopes>  -->
+
+            <!-- SEARCH CONDITIONS CONFIGURATION -->
+            <!-- Properties for customizing the list of search conditions available with CentraSite.
+            This includes a set of predefined search conditions. In addition a user can define a custom search condition by adding the type names in the @types attribute and specifying the class as com.softwareag.centrasite.api.csom.search.impl.CustomCondition -->
+           <!--  <SearchConditions>
+                <SearchCondition id="KeywordConditon" class="com.softwareag.centrasite.api.csom.search.impl.KeywordCondition">INM_MSG_KeywordCondition</SearchCondition>
+                <SearchCondition id="ComparisonCondition" class="com.softwareag.centrasite.api.csom.search.impl.ComparisonCondition">INM_MSG_ComparisonCondition</SearchCondition>
+                <SearchCondition id="CustomCondition" class="com.softwareag.centrasite.api.csom.search.impl.CustomCondition">INM_MSG_CustomCondition</SearchCondition>
+                <SearchCondition id="ClassificationCondition" class="com.softwareag.centrasite.api.csom.search.impl.ClassificationCondition">INM_MSG_ClassificationCondition</SearchCondition>
+            </SearchConditions> -->
+
+            <!-- Default state for search splitter -->
+          <!--   <SearchSplitter isExpanded="false" />
+        </Search> -->
+
+        <!-- BASIC ATTRIBUTES CONFIGURATION
+        Properties for customizing the list of basic attributes. The attributes represent an individual characteristic, property or piece of information about an asset. The basic attributes are applicable for all asset types.
+        For more information about the basic attributes, refer to the CentraSite online documentation's section "Administering the CentraSite Business UI -> Managing Assets -> About Attributes and Profiles -> Generic Attributes" -->
+       <!--  <CommonAttributes>
+            <Attribute qname="{http://namespaces.CentraSite.com/Schema/jaxr}name" description="INMCL_COMMON_ATTR_NAME_DEC">INMCL_COMMON_ATTR_NAME</Attribute>
+            <Attribute qname="{http://namespaces.CentraSite.com/Schema/jaxr}description" description="INMCL_COMMON_ATTR_DESC_DESC">INMCL_COMMON_ATTR_DESC</Attribute>
+            <Attribute qname="{http://namespaces.CentraSite.com/Schema/jaxr}type" description="INMCL_COMMON_ATTR_TYPE_DESC">INMCL_COMMON_ATTR_TYPE</Attribute>
+            <Attribute qname="{http://namespaces.CentraSite.com/Schema/jaxr}creationDate" description="INMCL_COMMON_ATTR_CRT_DATE_DESC">INMCL_COMMON_ATTR_CRT_DATE</Attribute>
+            <Attribute qname="{http://namespaces.CentraSite.com/Schema/jaxr}modifiedDate" description="INMCL_COMMON_ATTR_MOD_DATE_DESC">INMCL_COMMON_ATTR_MOD_DATE</Attribute>
+            <Attribute qname="{http://namespaces.CentraSite.com/Schema/jaxr}state" description="INMCL_COMMON_ATTR_LCSTATE_DESC">INMCL_COMMON_ATTR_LCSTATE</Attribute>
+            <Attribute qname="{http://namespaces.CentraSite.com/Schema/jaxr}key" description="INMCL_COMMON_ATTR_KEY_DESC">INMCL_COMMON_ATTR_KEY</Attribute>
+            <Attribute qname="{http://namespaces.CentraSite.com/Schema/jaxr}owner" description="INMCL_COMMON_ATTR_OWNER_DESC">INMCL_COMMON_ATTR_OWNER</Attribute>
+			<Attribute qname="{http://namespaces.CentraSite.com/Schema/jaxr}requestedUser" description="INMCL_COMMON_ATTR_REQUESTED_USER_DESC">INMCL_COMMON_ATTR_REQUESTED_USER</Attribute>
+            <Attribute qname="{http://namespaces.CentraSite.com/Schema/jaxr}submittingOrganization" description="INMCL_COMMON_ATTR_SUBMITTING_ORG_DESC">INMCL_COMMON_ATTR_SUBMITTING_ORG</Attribute>
+            <Attribute qname="{http://namespaces.CentraSite.com/Schema/jaxr}userVersion" description="INMCL_COMMON_ATTR_USER_VERSION_DESC">INMCL_COMMON_ATTR_USER_VERSION</Attribute>
+            <Attribute qname="{http://namespaces.CentraSite.com/Schema/jaxr}subscribers" description="INMCL_COMMON_ATTR_SUBSCRIBERS_DESC">INMCL_COMMON_ATTR_SUBSCRIBERS</Attribute>
+            <Attribute qname="{http://namespaces.CentraSite.com/Schema/jaxr}consumers" description="INMCL_COMMON_ATTR_CONSUMERS_DESC">INMCL_COMMON_ATTR_CONSUMERS</Attribute>
+			<Attribute qname="{http://namespaces.CentraSite.com/Schema/jaxr}consumedAssets" description="INMCL_COMMON_ATTR_CONSUMED_ASSETS_DESC">INMCL_COMMON_ATTR_CONSUMED_ASSETS</Attribute>
+            <Attribute qname="{http://namespaces.CentraSite.com/Schema/jaxr}pendingapprovals" description="INMCL_COMMON_ATTR_PENDING_APPROVALS_DEC">INMCL_COMMON_ATTR_PENDING_APPROVALS</Attribute>
+        </CommonAttributes> -->
+
+
+        <!-- ACTIONS CONFIGURATION -->
+		<!--<ActionGroups>
+   			<Action groupid="basic"></Action>
+   			<Action groupid="attach"></Action>
+   			<Action groupid="moniter"></Action>
+   			<Action groupid="runtime"></Action>
+   			<Action groupid="managePolicy"></Action>
+   			<Action groupid="policyState"></Action>
+   			<Action groupid="addRuntimeAction"></Action>
+   		</ActionGroups>-->
+        <!-- Properties for customizing the list of actions available with CentraSite..
+        This includes a set of predefined actions. In addition a user can define custom actions.
+        For information about adding a custom action, refer to the CentraSite online documentation's section "Administering the
+        CentraSite Business UI -> CentraSite Business User Interface Pluggable Architecture -> Customizing the Contents Page -> Extension Points -> Customize an Asset's Action Menu"-->
+     <!--    <Actions> -->
+        <!-- @inbox - enables one or more actions for the objects in CentraSite Inbox.
+         @bulk - enables an action for one or more objects (in a single operation)
+         @group - allows to categorize and render an action as a group element in UI.
+         @icon - URL for the icon that is to be used to represent the action in UI.
+         @class - refers to the implementation class of com.softwareag.centrasite.api.csom.action.CSOAction Interface
+            -->
+           <!--
+            <Action id="SaveAction" inbox="false" bulk="false" group="basic" icon='images/system/actionbar/01_Save.gif' class="com.softwareag.centrasite.api.csom.action.impl.SaveActionImpl">INMCL_ACTION_SAVE</Action>
+            <Action id="EditAction" inbox="false" bulk="false" group="basic" icon='images/system/actionbar/02_Edit.gif' class="com.softwareag.centrasite.api.csom.action.impl.EditActionImpl">INMCL_ACTION_EDIT</Action>
+            <Action id="NewVersionAction" inbox="false" bulk="true" group="basic" icon='images/system/actionbar/03_NewVersion.gif' class="com.softwareag.centrasite.api.csom.action.impl.NewVersionActionImpl">INMCL_ACTION_VERSION</Action>
+            <Action id="DeleteAction" inbox="false" bulk="true" group="basic" icon='images/system/actionbar/04_Delete.gif' class="com.softwareag.centrasite.api.csom.action.impl.DeleteActionImpl">INMCL_ACTION_DELETE</Action>
+            <Action id="Virtualize" inbox="false" bulk="false" group="basic" icon="images/system/actionbar/virtualize.png" class="com.softwareag.centrasite.api.csom.action.impl.VirtualizeActionImpl">INMCL_ACTION_VIRTUALIZE</Action>
+            <Action id="DownloadDocumentAction" inbox="false" bulk="true" group="attach" icon='images/system/actionbar/download_32x32.png' class="com.softwareag.centrasite.api.csom.action.impl.DownloadDocumentActionImpl">INMCL_ACTION_DOWNLOADDOCS</Action>
+            <Action id="AttachDocumentAction" timeout="600000" inbox="false" bulk="false" group="attach" icon='images/system/actionbar/08_Attach.gif' class="com.softwareag.centrasite.api.csom.action.impl.AttachDocumentActionImpl">INMCL_ACTION_ATTACH</Action>
+            <Action id="Export" inbox="false" bulk="true" group="attach" icon='images/system/actionbar/Export.gif' class="com.softwareag.centrasite.api.csom.action.impl.ExportActionImpl">INMCL_ACTION_EXPORT</Action>
+            <Action id="WatchAction" inbox="false" bulk="true" group="moniter" icon='images/system/actionbar/watch.png' class="com.softwareag.centrasite.api.csom.action.impl.WatchActionImpl">INMCL_ACTION_WATCH</Action>
+            <Action id="UnwatchAction" inbox="false" bulk="true" group="moniter" icon='images/system/actionbar/unwatch.png' class="com.softwareag.centrasite.api.csom.action.impl.UnwatchActionImpl">INMCL_ACTION_UNWATCH</Action>
+            <Action id="AddToListAction" inbox="false" bulk="true" group="moniter" icon='images/system/actionbar/AddtoList_32x32.png' class="com.softwareag.centrasite.api.csom.action.impl.AddToListActionImpl">INMCL_ACTION_ADD_TO_LIST</Action>
+            <Action id="RemoveFromListAction" inbox="false" bulk="true" group="moniter" icon="images/system/actionbar/RemovefromList_32X32_up.png" class="com.softwareag.centrasite.api.csom.action.impl.RemoveFromListActionImpl">INMCL_ACTION_REMOVE_FROM_LIST</Action>
+            <Action id="Consume" isAllowedForGuest="true" inbox="false" bulk="false" group="moniter" icon='images/system/actionbar/consume.png' class="com.softwareag.centrasite.api.csom.action.impl.ConsumeActionImpl">INMCL_ACTION_CONSUME</Action>
+            <Action id="RevertAction" inbox="false" bulk="false" group="moniter" icon='images/system/actionbar/Revert.png' class="com.softwareag.centrasite.api.csom.action.impl.RevertActionImpl">INMCL_ACTION_REVERT</Action>
+            <Action id="ViewReportAction" inbox="false" bulk="false" group="moniter" icon="images/system/actionbar/ViewReport.png" class="com.softwareag.centrasite.api.csom.action.impl.ViewReportActionImpl">INMCL_ACTION_VIEW_REPORT</Action>
+            <Action id="DeleteNotificationAction" inbox="true" bulk="true" group="moniter" icon="images/system/actionbar/04_Delete.gif" class="com.softwareag.centrasite.api.csom.action.impl.DeleteNotificationActionImpl">INMCL_ACTION_DELETE_NOTIFICATION</Action>
+            <Action id="Permission" inbox="false" bulk="false" group="moniter" icon="images/system/actionbar/Permission_32x32_up.png" class="com.softwareag.centrasite.api.csom.action.impl.PermissionActionImpl">INMCL_ACTION_PERMISSION</Action>
+            <Action id="AddOrganizationAction" inbox="false" bulk="false" group="basic" icon="images/system/actionbar/add_organization.png" class="com.softwareag.centrasite.api.csom.action.impl.AddOrganizationActionImpl">INMCL_ACTION_ADD_ORGANIZATION</Action>
+            <Action id="AddChildOrganizationAction" inbox="false" bulk="false" group="basic" icon="images/system/actionbar/add_child_organization.png" class="com.softwareag.centrasite.api.csom.action.impl.AddOrganizationActionImpl">INMCL_ACTION_ADD_CHILD_ORGANIZATION</Action>
+			      <Action id="AddUserAction" inbox="false" bulk="false" group="basic" icon='images/system/actionbar/add_user.png' class="com.softwareag.centrasite.api.csom.action.impl.AddUserActionImpl">INMCL_ACTION_ADD_USER</Action>
+            <Action id="AddGroupAction" inbox="false" bulk="false" group="basic" icon="images/system/actionbar/add_group.png" class="com.softwareag.centrasite.api.csom.action.impl.AddGroupActionImpl">INMCL_ACTION_ADD_GROUP</Action>
+            <Action id="AddRoleAction" inbox="false" bulk="false" group="basic" icon="images/system/actionbar/assign_role.png" class="com.softwareag.centrasite.api.csom.action.impl.AddRoleActionImpl">INMCL_ACTION_ADD_ROLE</Action>
+            <Action id="AddToGroupAction" inbox="false" bulk="false" group="basic" icon="images/system/actionbar/add_group.png" class="com.softwareag.centrasite.api.csom.action.impl.AddToGroupActionImpl">INMCL_ACTION_ADD_TO_GROUP</Action>
+            <Action id="AssignRoleAction" inbox="false" bulk="false" group="basic" icon="images/system/actionbar/assign_role.png" class="com.softwareag.centrasite.api.csom.action.impl.AssignRoleActionImpl">INMCL_ACTION_ASSIGN_ROLE</Action>
+			<Action id="SyncLDAPUserAction" inbox="false" bulk="false" group="basic" icon="images/system/actionbar/ldap-sync.png" class="com.softwareag.centrasite.api.csom.action.impl.SyncLDAPUserActionImpl">INMCL_ACTION_SYNC_LDAP_USER</Action>
+            <Action id="AssignUserAction" inbox="false" bulk="false" group="basic" icon="images/system/actionbar/add_user.png" class="com.softwareag.centrasite.api.csom.action.impl.AssignUsersToGroupActionImpl">INMCL_ACTION_ASSIGN_USER</Action>
+			      <Action id="NotifyConsumersAction" isAllowedForGuest="false" inbox="false" bulk="false" group="runtime" icon='images/system/actionbar/notify_consumer.png' class="com.softwareag.centrasite.api.csom.action.runtime.impl.NotifyConsumersActionImpl">INMCL_ACTION_NOTIFYCONSUMER</Action>
+            <Action id="ActivateAPIKey" inbox="false" bulk="false" group="runtime" icon="images/system/actionbar/settings.png" class="com.softwareag.centrasite.api.csom.action.runtime.impl.ActivateAPIKeyImpl">INMCL_ACTION_API_KEY_SETTINGS</Action>
+            <Action id="MergePublishAction" inbox="false" bulk="true" group="runtime" icon="images/system/actionbar/publish_32X32.png" class="com.softwareag.centrasite.api.csom.action.runtime.impl.MergePublishActionImpl">INMCL_ACTION_PUBLISH</Action>
+			      <Action id="MergeUnpublishAction" inbox="false" bulk="true" group="runtime" icon="images/system/actionbar/unpublish_32X32.png" class="com.softwareag.centrasite.api.csom.action.runtime.impl.MergeUnpublishActionImpl">INMCL_ACTION_UNPUBLISH</Action>
+			      <Action id="GatewayPublish" inbox="false" bulk="false" group="managePolicy" icon="images/system/actionbar/publish.png" class="com.softwareag.centrasite.api.csom.action.runtime.impl.GatewayPublishActionImpl">INMCL_ACTION_PUBLISH</Action>
+            <Action id="AssignPermissionAction" inbox="false" bulk="false" group="basic" icon="images/system/actionbar/Permission_32x32_up.png" class="com.softwareag.centrasite.api.csom.action.impl.AssignPermissionActionImpl">INMCL_ACTION_ASSIGN_PERMISSION</Action>
+			<Action id="SyncConsumerAction" inbox="false" bulk="false" group="basic" icon='images/system/actionbar/Sync-consumer-action.png' class="com.softwareag.centrasite.api.csom.action.runtime.impl.SyncConsumerActionImpl">INMCL_ACTION_SYNC_CONSUMERS</Action>
+
+            <Action id="AddTaxonomyAction" inbox="false" bulk="false" group="basic" icon="images/system/actionbar/add_taxonomy.png" class="com.softwareag.centrasite.api.csom.action.impl.AddTaxonomyActionImpl">INMCL_ACTION_ADD_TAXONOMY</Action>
+            <Action id="DeleteTaxonomyAction" inbox="false" bulk="true" group="basic" icon='images/system/actionbar/04_Delete.gif' class="com.softwareag.centrasite.api.csom.action.impl.DeleteTaxonomyActionImpl">INMCL_ACTION_DELETE</Action>
+            <Action id="AddCategoryAction" inbox="false" bulk="false" group="basic" icon="images/system/actionbar/add_category.png" class="com.softwareag.centrasite.api.csom.action.impl.AddCategoryActionImpl">INMCL_ACTION_ADD_CATEGORY</Action>
+
+      			<Action id="DeletePolicyAction" inbox="false" bulk="true" group="managePolicy" applicable="policy" icon="images/system/actionbar/04_Delete.gif" class="com.softwareag.centrasite.api.csom.action.runtime.impl.DeletePolicyActionImpl">INMCL_ACTION_DELETE</Action>
+      			<Action id="RuntimeAliasesPublishAction" inbox="false" bulk="true" group="managePolicy" applicable="policy" icon="images/system/actionbar/publish.png" class="com.softwareag.centrasite.api.csom.action.runtime.impl.RuntimeAliasesPublishActionImpl">INMCL_ACTION_PUBLISH</Action>
+      			<Action id="RuntimeAliasesUnPublishAction" inbox="false" bulk="true" group="managePolicy" applicable="policy" icon="images/system/actionbar/unpublish.png" class="com.softwareag.centrasite.api.csom.action.runtime.impl.RuntimeAliasesUnpublishActionImpl">INMCL_ACTION_UNPUBLISH</Action>
+				<Action id="SyncConsumerRuntimeAction" inbox="false" bulk="true" group="managePolicy" applicable="policy" icon='images/system/actionbar/Sync-consumer-action.png' class="com.softwareag.centrasite.api.csom.action.runtime.impl.SyncConsumerActionImpl">INMCL_ACTION_SYNC_CONSUMERS</Action>
+
+      			<Action id="ActivatePolicyAction" inbox="false" bulk="false" group="policyState" applicable="policy" icon="images/system/actionbar/virtualize.png" class="com.softwareag.centrasite.api.csom.action.runtime.impl.ActivatePolicyActionImpl">INMCL_ACTION_ActivatePolicy</Action>
+      			<Action id="DeactivatePolicyAction" inbox="false" bulk="false" group="policyState" applicable="policy" icon="images/system/actionbar/virtualize.png" class="com.softwareag.centrasite.api.csom.action.runtime.impl.DeactivatePolicyActionImpl">INMCL_ACTION_DeactivatePolicy</Action>
+
+      			<Action id="ActivatePolicyAction" inbox="false" bulk="false" group="policyState" applicable="policy" icon="images/system/actionbar/virtualize.png" class="com.softwareag.centrasite.api.csom.action.runtime.impl.ActivatePolicyActionImpl">INMCL_ACTION_ActivatePolicy</Action>
+      			<Action id="DeactivatePolicyAction" inbox="false" bulk="false" group="policyState" applicable="policy" icon="images/system/actionbar/virtualize.png" class="com.softwareag.centrasite.api.csom.action.runtime.impl.DeactivatePolicyActionImpl">INMCL_ACTION_DeactivatePolicy</Action>
+
+      			<Action id="RuntimePolicyAction" inbox="false" bulk="true" group="addRuntimeAction" applicable="policy" icon="images/system/actionbar/07_ViewPolicy.gif" class="com.softwareag.centrasite.api.csom.action.runtime.impl.ManageRuntimePolicyActionImpl">INMCL_ACTION_RUNTIMEPOLICY</Action>
+      			<Action id="RuntimeAliasAction" inbox="false" bulk="true" group="addRuntimeAction" applicable="policy" icon="images/system/actionbar/managerRuntimeAlias.png" class="com.softwareag.centrasite.api.csom.action.runtime.impl.ManageRuntimeAliasActionImpl">INMCL_ACTION_AddRuntimeAlias</Action>
+      			<Action id="AssetNavigatorAction" inbox="false" bulk="false" group="moniter" icon="images/system/actionbar/ImpactAnalysis.png" class="com.softwareag.centrasite.api.csom.action.impl.AssetNavigatorActionImpl">INMCL_ACTION_ASSETNAVIGATOR</Action> -->
+
+			<!-- The below actions are not predefined actions. They are samples provided for implementing custom actions in BusinessUI extensions. Uncomment the below two actions if the BusinessUI extensions are enabled. -->
+			<!--
+			<Action id="RunPolicyAction" inbox="false" bulk="false" group="basic" icon='images/system/actionbar/execute_policy.png' class="com.softwareag.centrasite.demos.bui.actions.runpolicy.RunPolicyAction">Execute Policy</Action>
+			<Action id="ChangeOwnerAction" inbox="false" bulk="true" group="basic" icon='images/system/actionbar/change_owner.png' class="com.softwareag.centrasite.demos.bui.actions.changeowner.ChangeOwnerAction">Change Owner</Action>
+			-->
+        <!-- </Actions> -->
+        <!-- list of services which are exposed-->
+       <!--  <Services> -->
+             <!--
+                @id - unique identifier of service
+                @privilegeUser - user who have privilege to perform the actions on Service
+                @requiredRoles - the roles required to perform actions on Service
+             -->
+          <!--
+			<Service id="AccessTokenPublishService" privilegeUser="INTERNAL\Administrator" requiredRoles=""> </Service>
+			<Service id="DeploymentService" privilegeUser="INTERNAL\Administrator" requiredRoles="Mediator Publisher"> </Service>
+			<Service id="ConsumerService" privilegeUser="INTERNAL\Administrator" requiredRoles=""> </Service>
+			<Service id="ProviderService" privilegeUser="INTERNAL\Administrator" requiredRoles="Mediator Publisher"> </Service>
+			<Service id="KeyConfigurationService" privilegeUser="INTERNAL\Administrator" requiredRoles="Asset Provider"> </Service>
+			<Service id="OnBoardingService" privilegeUser="INTERNAL\Administrator" requiredRoles=""> </Service>
+			<Service id="NotificationService" privilegeUser="INTERNAL\Administrator" requiredRoles=""> </Service>
+			<Service id="APIPortalService" privilegeUser="INTERNAL\Administrator" requiredRoles="API-Portal Administrator"> </Service>
+			<Service id="APIPortalKeyManagementService" privilegeUser="INTERNAL\Administrator" requiredRoles="API-Portal Administrator"> </Service>
+			<Service id="APIPortalUserManagementService" privilegeUser="INTERNAL\Administrator" requiredRoles="API-Portal Administrator"> </Service>
+			<Service id="APIPublishUnpublishService" privilegeUser="INTERNAL\Administrator" requiredRoles="API-Portal Publisher"> </Service>
+			<Service id="ReportManagementService" privilegeUser="INTERNAL\Administrator" requiredRoles="Asset Provider" />
+			<Service id="ScheduledReportManagementService" privilegeUser="INTERNAL\Administrator" requiredRoles="Asset Provider" />
+			<Service id="RunTimeService" privilegeUser="INTERNAL\Administrator" requiredRoles="Mediator Administrator" />
+			<Service id="ReportSchedulingService" privilegeUser="INTERNAL\Administrator" requiredRoles="" />
+			<Service id="ConsumerRegistrationService" privilegeUser="INTERNAL\Administrator" requiredRoles="" />
+			<Service id="APIExportService" privilegeUser="INTERNAL\Administrator" requiredRoles="" />
+			<Service id="ConsumerSyncService" privilegeUser="INTERNAL\Administrator" requiredRoles="Mediator Administrator,Mediator Publisher,Organization Administrator"> </Service>
+			<Service id="SNMPDetailsService" privilegeUser="INTERNAL\Administrator" requiredRoles="API Gateway Administrator,Organization Administrator,CentraSite Administrator"> </Service>
+		  -->
+        <!-- </Services> -->
+            <!-- Runtime Policy Actions - list of RuntimePolicyActions which have constraints -->
+          <!--   <RuntimePolicyActions> -->
+                <!--
+                @id - unique identifier of policy action template
+                @name - name of the policy action
+                @occurence - how many number of time then action can be added
+                @mutualExclusive - which represent mutual exclusive actions , in case the mutual exclsive action already present in the message flow step
+                    then this action can't be added
+                @dependent - represents the dependent action, the dependent action(s) should be present in the message flow step so that the specified action
+                    can be included into the message flow step
+                @dependentType - represents the relation between the action and the dependent actions. Possible values are ANY and ALL.
+                    If ANY then the action can be included if any of the dependent action is present.
+                    If ALL then the action can be include only if all the dependent actions are already present
+                -->
+                <!-- <Action  name="RequestTransformation" id="uddi:6fa53e73-8557-4958-9294-f2e58ff544f6" occurence="*" mutualExclusive="" dependent="" dependentType=""></Action>
+                <Action  name="ResponseTransformation" id="uddi:46b5198f-e299-4bff-8e39-441277cf066f" occurence="*" mutualExclusive="" dependent="" dependentType=""></Action>
+                <Action  name="SetBasicAuthention"  id="uddi:e4cf886b-5e4b-11e3-98c4-c049f8dfb273" occurence="1"
+                    mutualExclusive="uddi:eff20b50-5e76-11e3-b12c-93b1f1059e53,uddi:c00b268e-5e99-11e3-af7d-cecb35561931,uddi:ff9dde45-efb0-48f2-ac65-46a765b55e25,uddi:48263eb3-0eb9-4cdc-b753-3268ca3fce9f,uddi:2e24d209-8a09-4d64-998c-eb551a7ba1c4" dependent="" dependentType=""></Action>
+                <Action  name="SetNTLMAuthentication" id="uddi:eff20b50-5e76-11e3-b12c-93b1f1059e53" occurence="1"
+                    mutualExclusive="uddi:e4cf886b-5e4b-11e3-98c4-c049f8dfb273,uddi:c00b268e-5e99-11e3-af7d-cecb35561931,uddi:ff9dde45-efb0-48f2-ac65-46a765b55e25,uddi:48263eb3-0eb9-4cdc-b753-3268ca3fce9f,uddi:2e24d209-8a09-4d64-998c-eb551a7ba1c4" dependent="" dependentType=""></Action>
+                <Action  name="SetOAuthAuthentication" id="uddi:c00b268e-5e99-11e3-af7d-cecb35561931" occurence="1"
+                    mutualExclusive="uddi:e4cf886b-5e4b-11e3-98c4-c049f8dfb273,uddi:eff20b50-5e76-11e3-b12c-93b1f1059e53,uddi:ff9dde45-efb0-48f2-ac65-46a765b55e25,uddi:48263eb3-0eb9-4cdc-b753-3268ca3fce9f,uddi:2e24d209-8a09-4d64-998c-eb551a7ba1c4" dependent="" dependentType=""></Action>
+                <Action  name="RequireTimestamp" id="uddi:1bbbdcde-5a47-4f7c-b12c-d87a39a4008d" occurence="1" mutualExclusive=""
+                    dependent="uddi:8d7557de-18b8-428d-b496-03226805abda,uddi:2f3a20f0-6328-4f8d-be8e-27c90dba711c,
+                    uddi:999d8a60-3e9d-4a1f-8898-97bab92138ca,uddi:c99a125e-d1e5-4171-a3db-907682edd3e0" dependentType="ANY"></Action>
+                <Action  name="RequireSigning" id="uddi:8d7557de-18b8-428d-b496-03226805abda" occurence="*" mutualExclusive="" dependent="" dependentType=""></Action>
+                <Action  name="RequireEncryption" id="uddi:2f3a20f0-6328-4f8d-be8e-27c90dba711c" occurence="*" mutualExclusive="" dependent="" dependentType=""></Action>
+
+
+                <Action  name="MonitorServiceLevelAgreement" id="uddi:84593bc5-5d8d-4390-affb-7951d9cf18e9" occurence="1" mutualExclusive=""
+                dependent="uddi:6c40ea87-f83e-11e2-afaa-e39084e5ef22, uddi:6c3ca4c7-f83e-11e2-afaa-89d747663837, uddi:6b8ed897-f83e-11e2-afaa-cc584179242c, uddi:6c457e67-f83e-11e2-afaa-985f39d0f7e9, uddi:6c48b2b7-f83e-11e2-afaa-c6aa8fd9fa9c, uddi:6c374d97-f83e-11e2-afaa-dad3792b0a52" dependentType="ANY"></Action>
+
+                <Action  name="JMSRoutingRule" id="uddi:ff9dde45-efb0-48f2-ac65-46a765b55e25" occurence="1" mutualExclusive="uddi:e4cf886b-5e4b-11e3-98c4-c049f8dfb273,uddi:eff20b50-5e76-11e3-b12c-93b1f1059e53,uddi:c00b268e-5e99-11e3-af7d-cecb35561931, uddi:166a4c27-85ff-4c53-a1b5-5d43e764285e, uddi:dfae27c0-56a9-42e5-8728-56f5293cd50d, uddi:dfae27c0-56a9-42e5-8728-56f5293cd111, uddi:b99e3e2e-115a-4093-98c7-1922ecb2f77e,uddi:04f7c2b1-ae46-4e4e-b46b-a214a1a80fc0"
+                dependent="" dependentType=""></Action>
+
+                <Action name="SetCustomHeaders" id="uddi:04f7c2b1-ae46-4e4e-b46b-a214a1a80fc0" occurence="1" dependent="uddi:166a4c27-85ff-4c53-a1b5-5d43e764285e, uddi:dfae27c0-56a9-42e5-8728-56f5293cd50d, uddi:dfae27c0-56a9-42e5-8728-56f5293cd111, uddi:b99e3e2e-115a-4093-98c7-1922ecb2f77e" dependentType="ANY"></Action>
+
+                <Action name="SetMessageProperties" id="uddi:48263eb3-0eb9-4cdc-b753-3268ca3fce9f" occurence="1" dependent="uddi:ff9dde45-efb0-48f2-ac65-46a765b55e25"  dependentType="ALL"></Action>
+
+                <Action name="SetJMSHeaders" id="uddi:2e24d209-8a09-4d64-998c-eb551a7ba1c4" occurence="1" dependent="uddi:ff9dde45-efb0-48f2-ac65-46a765b55e25" dependentType="ALL"></Action>
+
+                <Action name="StraightThroughRouting" id="uddi:166a4c27-85ff-4c53-a1b5-5d43e764285e" occurence="1"
+                mutualExclusive="uddi:ff9dde45-efb0-48f2-ac65-46a765b55e25, uddi:dfae27c0-56a9-42e5-8728-56f5293cd50d, uddi:dfae27c0-56a9-42e5-8728-56f5293cd111, uddi:b99e3e2e-115a-4093-98c7-1922ecb2f77e, uddi:48263eb3-0eb9-4cdc-b753-3268ca3fce9f, uddi:2e24d209-8a09-4d64-998c-eb551a7ba1c4"></Action>
+
+                <Action name="ContentBasedRouting" id="uddi:dfae27c0-56a9-42e5-8728-56f5293cd50d" occurence="1"
+                mutualExclusive="uddi:ff9dde45-efb0-48f2-ac65-46a765b55e25, uddi:166a4c27-85ff-4c53-a1b5-5d43e764285e, uddi:b99e3e2e-115a-4093-98c7-1922ecb2f77e, uddi:48263eb3-0eb9-4cdc-b753-3268ca3fce9f, uddi:2e24d209-8a09-4d64-998c-eb551a7ba1c4"></Action>
+
+                <Action name="ContextBasedRouting" id="uddi:dfae27c0-56a9-42e5-8728-56f5293cd111" occurence="1"
+                mutualExclusive="uddi:ff9dde45-efb0-48f2-ac65-46a765b55e25, uddi:166a4c27-85ff-4c53-a1b5-5d43e764285e, uddi:dfae27c0-56a9-42e5-8728-56f5293cd50d, uddi:b99e3e2e-115a-4093-98c7-1922ecb2f77e, uddi:48263eb3-0eb9-4cdc-b753-3268ca3fce9f, uddi:2e24d209-8a09-4d64-998c-eb551a7ba1c4"></Action>
+
+                <Action name="LoadBalancingFailOverRouting" id="uddi:b99e3e2e-115a-4093-98c7-1922ecb2f77e" occurence="1"
+                mutualExclusive="uddi:ff9dde45-efb0-48f2-ac65-46a765b55e25, uddi:166a4c27-85ff-4c53-a1b5-5d43e764285e, uddi:dfae27c0-56a9-42e5-8728-56f5293cd50d, uddi:dfae27c0-56a9-42e5-8728-56f5293cd111, uddi:48263eb3-0eb9-4cdc-b753-3268ca3fce9f, uddi:2e24d209-8a09-4d64-998c-eb551a7ba1c4"></Action>
+
+                <Action name="RequireJMSProtocol" id="uddi:197d6462-e8fb-4c2b-8bce-b0413cf39c29" occurence="1"
+                mutualExclusive="uddi:d4fc6a81-4ba3-11e3-8ade-bb647d452e30"></Action>
+
+                <Action name="RequireHTTP/HTTPS" id="uddi:d4fc6a81-4ba3-11e3-8ade-bb647d452e30" occurence="1"
+                mutualExclusive="uddi:197d6462-e8fb-4c2b-8bce-b0413cf39c29"></Action>
+
+            </RuntimePolicyActions>
+
+            --><AssetNavigatorConfigurations>
+			<UseCases>
+				<UseCase id="OrganizationStructure" rootQueryId="getRootForOrgStructure"
+					fillChild="false" default = "true" defaultChart="TreeChart" applicableChartTypes="TreeChart,SunBurst,Icicle">INMCL_USECASE_ORG
+				</UseCase>
+				<UseCase id="RuntimeLandscapeView" rootQueryId="getRootForRuntimeLandscapeview"
+					fillChild="false" defaultChart="TreeChart" applicableChartTypes="TreeChart,SunBurst,Icicle">INMCL_USECASE_RUNTIMELANDSCAPEVIEW
+				</UseCase>
+				<UseCase id="DemoView" rootQueryId="getRootForDemoView" defaultChart="TreeChart" applicableChartTypes="TreeChart.SunBurst,Icicle">Demo View</UseCase>
+			</UseCases>
+			<AssetSpecificUseCases>
+				<UseCase id="AssetDependency" rootQueryId="getRootForAssetDependencies" default="true" defaultChart="TreeChart" applicableChartTypes="TreeChart,SunBurst,Icicle">INMCL_USECASE_ASSETDEPENDENCY</UseCase>
+				<UseCase id="AssetUsage" rootQueryId="getRootForAssetUsage" defaultChart="TreeChart" applicableChartTypes="TreeChart,SunBurst,Icicle">INMCL_USECASE_ASSETUSAGE</UseCase>
+				<UseCase id="DeploymentOverview" rootQueryId="getRootForDeploymentOverview" defaultChart="TreeChart" applicableChartTypes="TreeChart,SunBurst,Icicle">INMCL_USECASE_DEPLOYMNENT</UseCase>
+				<UseCase id="AssetVersioningAndConsumers" rootQueryId="getRootForAssetVersioningAndConsumers" defaultChart="TreeChart" applicableChartTypes="TreeChart,SunBurst,Icicle">INMCL_USECASE_ASSET_VERSIONING_AND_CONSUMERS</UseCase>
+			</AssetSpecificUseCases>
+			<ChartTypes>
+				<Chart id="SunBurst" nameTruncationLimit="8" imageUrl="images/system/charticons/sunburst.png" />
+				<Chart id="TreeChart" nameTruncationLimit="18" imageUrl="images/system/charticons/treechart.png" />
+				<Chart id="Graph" nameTruncationLimit="10" imageUrl="images/system/charticons/graph.png" />
+				<Chart id="Icicle" nameTruncationLimit="18" imageUrl="images/system/charticons/icicle.png" />
+			</ChartTypes>
+			<Images>
+				<Image ref="getRootForOrgStructure" >d3/images/org.png</Image>
+				<Image ref="rolesDummy">d3/images/medium dummy.png</Image>
+				<Image ref="groupsDummy">d3/images/medium dummy.png</Image>
+				<Image ref="usersDummy">d3/images/medium dummy.png</Image>
+				<Image ref="childOrgDummy">d3/images/medium dummy.png</Image>
+				<Image ref="getRoles">d3/images/role.png</Image>
+				<Image ref="getGroups">d3/images/groups.png</Image>
+				<Image ref="getUsersForOrg">d3/images/user.png</Image>
+				<Image ref="getRootForRuntimeLandscapeview" >d3/images/medium dummy.png</Image>
+				<Image ref="portalDummy,portalsForAssetDummy">d3/images/medium dummy.png</Image>
+				<Image ref="mediatorDummy,mediatorsForAssetDummy">d3/images/medium dummy.png</Image>
+			</Images>
+
+			<CommonAttributes>
+				<Attribute qname="{http://namespaces.CentraSite.com/Schema/jaxr}name" description="INMCL_COMMON_ATTR_NAME_DEC">INMCL_COMMON_ATTR_NAME</Attribute>
+				<Attribute qname="{http://namespaces.CentraSite.com/Schema/jaxr}description" description="INMCL_COMMON_ATTR_DESC_DESC">INMCL_COMMON_ATTR_DESC</Attribute>
+				<Attribute qname="{http://namespaces.CentraSite.com/Schema/jaxr}type" description="INMCL_COMMON_ATTR_TYPE_DESC">INMCL_COMMON_ATTR_TYPE</Attribute>
+				<Attribute qname="{http://namespaces.CentraSite.com/Schema/jaxr}creationDate" description="INMCL_COMMON_ATTR_CRT_DATE_DESC">INMCL_COMMON_ATTR_CRT_DATE</Attribute>
+				<Attribute qname="{http://namespaces.CentraSite.com/Schema/jaxr}modifiedDate" description="INMCL_COMMON_ATTR_MOD_DATE_DESC">INMCL_COMMON_ATTR_MOD_DATE</Attribute>
+				<Attribute qname="{http://namespaces.CentraSite.com/Schema/jaxr}state" description="INMCL_COMMON_ATTR_LCSTATE_DESC">INMCL_COMMON_ATTR_LCSTATE</Attribute>
+				<Attribute qname="{http://namespaces.CentraSite.com/Schema/jaxr}owner" description="INMCL_COMMON_ATTR_OWNER_DESC">INMCL_COMMON_ATTR_OWNER</Attribute>
+				<Attribute qname="{http://namespaces.CentraSite.com/Schema/jaxr}submittingOrganization" description="INMCL_COMMON_ATTR_SUBMITTING_ORG_DESC">INMCL_COMMON_ATTR_SUBMITTING_ORG</Attribute>
+				<Attribute qname="{http://namespaces.CentraSite.com/Schema/jaxr}userVersion" description="INMCL_COMMON_ATTR_USER_VERSION_DESC">INMCL_COMMON_ATTR_USER_VERSION</Attribute>
+			</CommonAttributes>
+
+			<SavedQueries>
+				<SavedQuery id="getRootForOrgStructure" childQueries="getOrgNames"
+					ref="OrganizationStructure">INMCL_DUMMYNODE_ORGANIZATIONS</SavedQuery>
+				<SavedQuery id="getOrgNames" resource="GetAllOrganizations"
+					childQueries="rolesDummy,groupsDummy,usersDummy,childOrgDummy" ref="OrganizationStructure" />
+				<SavedQuery id="rolesDummy" childQueries="getRoles"
+					ref="OrganizationStructure">INMCL_DUMMYNODE_ROLES</SavedQuery>
+				<SavedQuery id="groupsDummy" childQueries="getGroups"
+					ref="OrganizationStructure">INMCL_DUMMYNODE_GROUPS</SavedQuery>
+				<SavedQuery id="usersDummy" childQueries="getUsersForOrg"
+					ref="OrganizationStructure">INMCL_DUMMYNODE_USERS</SavedQuery>
+				<SavedQuery id="childOrgDummy" childQueries="getChildOrgForOrg"
+					ref="OrganizationStructure">INMCL_DUMMYNODE_CHILDORGANIZATIONS</SavedQuery>
+				<SavedQuery id="getRoles" resource="GetRolesForOrg"
+					parameters="${submittingOrganization}" ref="OrganizationStructure" />
+				<SavedQuery id="getGroups" resource="GetGroupsForOrg"
+					parameters="${submittingOrganization}" ref="OrganizationStructure" />
+				<SavedQuery id="getUsersForOrg" resource="GetUsersForOrg"
+					parameters="${submittingOrganization}" ref="OrganizationStructure" />
+				<SavedQuery id="getChildOrgForOrg" resource="GetAllChildOrganizationsForOrg"
+					parameters="${parentOrganization}" childQueries="rolesDummy,groupsDummy,usersDummy,childOrgDummy"
+					ref="OrganizationStructure" />
+
+
+				<SavedQuery id="getRootForRuntimeLandscapeview" childQueries="portalDummy,mediatorDummy"
+					ref="RuntimeLandscapeView">INMCL_DUMMYNODE_GATEWAYS
+				</SavedQuery>
+				<SavedQuery id="portalDummy" childQueries="getAllAPI-Portals"
+					ref="RuntimeLandscapeView">INMCL_DUMMYNODE_APIPORTALS</SavedQuery>
+				<SavedQuery id="mediatorDummy" childQueries="getAllMediators"
+					ref="RuntimeLandscapeView">INMCL_DUMMYNODE_MEDIATORS</SavedQuery>
+				<SavedQuery id="getAllAPI-Portals" resource="GetAllApiPortals"
+					childQueries="getAssetsForPortal" ref="RuntimeLandscapeView" />
+				<SavedQuery id="getAllMediators" resource="GetAllMediators"
+					childQueries="getAssetsForMediator" ref="RuntimeLandscapeView" />
+				<SavedQuery id="getAssetsForMediator" resource="GetAssetsForMediator"
+					parameters="${MediatorID}" ref="RuntimeLandscapeView" />
+				<SavedQuery id="getAssetsForPortal" resource="GetAssetsForPortal"
+					parameters="${PortalID}" ref="RuntimeLandscapeView" />
+
+				<SavedQuery id="getRootForAssetDependencies" childQueries="getTypeNamesForAssetDependencies"
+					ref="AssetDependency" >${AssetName}</SavedQuery>
+				<SavedQuery id="getTypeNamesForAssetDependencies" resource="GetOutgoingTypesAssociatedWithAsset"
+					parameters="${assetKey}" ref="AssetDependency" childQueries="getAssetsForOutgoingAssociation"></SavedQuery>
+				<SavedQuery id="getAssetsForOutgoingAssociation" resource="GetAssetsForOutgoingAssociation"
+					parameters="${typeId},${assetKey}" childQueries="getTypeNamesForAssetDependencies" ref="AssetDependency"  />
+
+
+				<SavedQuery id="getRootForAssetUsage" childQueries="getTypeNamesForAssetUsage"
+					ref="AssetUsage" >${AssetName}</SavedQuery>
+				<SavedQuery id="getTypeNamesForAssetUsage" resource="GetIncomingTypesAssociatedWithAsset"
+					parameters="${assetKey}" ref="AssetUsage" childQueries="getAssetsForIncomingAssociation"></SavedQuery>
+				<SavedQuery id="getAssetsForIncomingAssociation" resource="GetAssetsForIncomingAssociation"
+					parameters="${typeId},${assetKey}" childQueries="getTypeNamesForAssetUsage" ref="AssetUsage"  />
+
+				<SavedQuery id="getRootForDeploymentOverview" childQueries="getAllVersionsForAsset"
+					ref="DeploymentOverview" >${AssetName}</SavedQuery>
+				<SavedQuery id="getAllVersionsForAsset" resource="GetAllVersionsForAsset"
+					parameters="${assetKey}" ref="DeploymentOverview" childQueries="portalsForAssetDummy,mediatorsForAssetDummy" />
+        		<SavedQuery id="portalsForAssetDummy" childQueries="getDeployedPortalsForAsset"
+        			ref="DeploymentOverview">INMCL_DUMMYNODE_APIPORTALS</SavedQuery>
+       			<SavedQuery id="mediatorsForAssetDummy" childQueries="getDeployedMediatorsForAsset"
+       				ref="DeploymentOverview">INMCL_DUMMYNODE_MEDIATORS</SavedQuery>
+        		<SavedQuery id="getDeployedPortalsForAsset" resource="GetDeployedAPIPortalsForAsset"
+        			parameters="${assetKey}" ref="DeploymentOverview" />
+        		<SavedQuery id="getDeployedMediatorsForAsset" resource="GetDeployedMediatorsForAsset"
+        			parameters="${assetKey}" ref="DeploymentOverview" />
+
+				<SavedQuery id="getRootForAssetVersioningAndConsumers" childQueries="getAllVersionsForAsset"
+					ref="AssetVersioningAndConsumers">${AssetName}</SavedQuery>
+				<SavedQuery id="getAllVersionsForAsset" resource="GetAllVersionsForAsset"
+					parameters="${assetKey}" ref="AssetVersioningAndConsumers" childQueries="getConsumingTypesAssociatedWithAsset"/>
+				<SavedQuery id="getConsumingTypesAssociatedWithAsset" resource="GetConsumingTypesAssociatedWithAsset"
+					parameters="${assetKey}" ref="AssetVersioningAndConsumers" childQueries="getConsumersAssociatedWithAsset" />
+				<SavedQuery id="getConsumersAssociatedWithAsset" resource="GetConsumersAssociatedWithAsset"
+					parameters="${typeId},${assetKey}" ref="AssetVersioningAndConsumers" />
+			</SavedQueries>
+
+		</AssetNavigatorConfigurations>
+    </CLLConfigurations>
+
+    <!-- BUSINESS USER INTERFACE (BUI) CONFIGURATION
+       The configuration parameters of CentraSite Logic Layer-->
+    <!-- Common Property Attributes
+        @id - unique dentifer of the element
+        @tooltip - tooltip text for a field
+        @displayName - display text of a field
+        @token - token for an activity that can be used as a Deep Link to render the particular activity page
+        @visiblity - enable or disable the display of an element based on this value.
+        if set to "true", the element is visible in the UI
+        Value / text that starts with CS_MSG_INMBU or CS_MSG_INMBX will be replaced with the value of i18n Properties   -->
+    <UIProperties>
+        <!-- HEADER PANEL CONFIGURATION
+        Properties for customizing the header panel.
+        For more information about configuring the header panel, refer to the CentraSite online documentation's section "Administering the
+        CentraSite Business UI -> CentraSite Business User Interface Pluggable Architecture -> Customizing the Login Page -> Installing the Customized Login Page -> Header Section" -->
+       <!--  <Header>
+            Company Logo - sets the company logo with text "SoftwareAG"
+            <CompanyLogo tooltip="CS_MSG_INMBX_IMG_APP_MAIN_LOGO_ALT_TEXT">images/system/img_BlueFlagSAG_100_36.png</CompanyLogo>
+
+            <BlueFlagCompanyLogo tooltip="CS_MSG_INMBX_IMG_APP_MAIN_LOGO_ALT_TEXT">
+                images/system/BlueFlagSAG.png
+            </BlueFlagCompanyLogo>
+            <TakeATourImage>images/system/ico_up_TakeATour_50x43.png</TakeATourImage>
+            <LoginProductLogo tooltip="CS_MSG_INMBX_LBL_PAGE_TITLE">
+                images/system/img_CentraSite_loginscreen.png
+            </LoginProductLogo> -->
+
+            <!-- Product Logo - sets the product logo with text "CentraSiteTM Active SOA" -->
+            <!-- <HeaderLogo tooltip="CS_MSG_INMBX_LBL_PAGE_TITLE">images/system/img_CentraSite_masthead.png</HeaderLogo> -->
+
+            <!-- List of header menus available with CentraSite. This includes the Login | Welcome | Inbox | Help | About .
+                For more information about configuring the header menus, refer to the CentraSite online documentation's section "Administering the
+                CentraSite Business UI -> CentraSite Business User Interface Pluggable Architecture -> Customizing the Welcome Page -> Welcome Page Configuration -> Header Menus" -->
+        <!--     <HeaderLinks>
+            <HeaderLink id ="dashboard" displayName="CS_MSG_INMBU_LINK_DASHBOARD" token="welcome:welcome">
+            </HeaderLink>
+            <HeaderLink id="inbox" displayName="CS_MSG_INMBU_LINK_INBOX" token="inbox:inbox">
+            </HeaderLink>
+            <HeaderLink id="help" displayName="CS_MSG_INMBU_LINK_HELP" token="help:help">
+            </HeaderLink>
+            <HeaderLink id="about" displayName="CS_MSG_INMBU_LINK_ABOUT" token="about:about">
+            </HeaderLink>
+            Image for spliting the list of header menus - ( | )
+            <HeaderMenuSeparator tooltip="CS_MSG_INMBX_LBL_HEADER_MENU_SEPERATOR">
+                    images/system/Separator_White_1X1.png
+            </HeaderMenuSeparator>
+            </HeaderLinks>
+
+        </Header> -->
+
+        <!-- FOOTER PANEL CONFIGURATION
+        Properties for customizing the footer panel.
+        For more information about configuring the footer panel, refer to the CentraSite online documentation's section "Administering the
+        CentraSite Business UI -> CentraSite Business User Interface Pluggable Architecture -> Customizing the Login Page -> Installing the Customized Login Page -> Footer Section" -->
+      <!--   <Footer> -->
+            <!-- Enable or disable the visiblity of "Time" field in the footer panel -->
+            <!-- <Time visiblity="true" /> -->
+
+            <!-- Enable or disable the visiblity of "PoweredBy" field in the footer panel -->
+           <!--  <PoweredBy tooltip="CS_MSG_INMBX_LBL_FOOTER_TEXT" visiblity="true">
+                images/system/webfooter_powered_by.png
+            </PoweredBy>
+        </Footer> -->
+
+        <!-- LOGIN PAGE CONFIGURATION
+        Properties for customizing thes login page of CentraSite Business UI.
+        For more information about configuring the login page, refer to the CentraSite online documentation's section "Administering the
+        CentraSite Business UI -> CentraSite Business User Interface Pluggable Architecture -> Customizing the Login Page"
+
+           @loginAsGuest - enables an anonymous user to access the CentraSite Business UI Welcome page as a Guest.
+
+           Set the attribute's "visibility" value to "true" to render the element in the login page
+           If at anytime you wish to disable a element in the login page, simply replace the "visibility" value "true" by "false"   .   -->
+       <!--  <LoginPage loginAsGuest="false">
+            <RememberMe visiblity="true"/>
+            <InfoPanel visiblity="true">
+	        	<ProductLogo tooltip="CS_MSG_INMBX_LBL_PRODUCT_INTRO_HEADER">images/system/cs_product_logo_70x70.png</ProductLogo>
+	        	<TakeATour visiblity="true" url="http://www.softwareag.com">CS_MSG_INMBX_BTN_TOUR</TakeATour>
+      		</InfoPanel>
+            <Guest visiblity="true" />
+            <CopyRight visiblity="true">
+                CS_MSG_INMBX_LBL_COPYRIGHT
+            </CopyRight> -->
+
+            <!-- REQUEST AN ACCOUNT CONFIGURATION
+            Properties for requesting an account in CentraSite
+            For more information about the request an account in CentraSite, refer to the CentraSite online documentation's section "Administering the CentraSite Business UI -> Working with the Business User Interface -> Logging In and Out -> Requesting Access to CentraSite Business UI" -->
+          <!--   <RequestAnAccount visiblity="true">
+                <ReasonForRequest visiblity="true"/>
+            </RequestAnAccount>
+
+        </LoginPage> -->
+
+        <!--
+        <LogoutPage>
+                <SSOLogoffLandingURL>http://www.softwareag.com</SSOLogoffLandingURL>
+        </LogoutPage>
+        -->
+
+        <!-- NAVIGATION PANEL CONFIGURATION
+            The navigation panel includes the search panel and the activities available with CentraSite. -->
+       <!--  <NavigationPanel> -->
+            <!-- SEARCH PANEL CONFIGURATION
+            The search panel comprises of a type ahead search field and the browse link. This panel is located on the left side of the screen directly below the header panel.
+            Properties for customizing the search panel.
+            @minOffsetToStartSearch - defines the number of offset characters in search string as to trigger a search in the suggestion box.
+            @numOfResultsToShow - defines the number of search results to display in the suggestion box.
+            @maxCharactersToShow - defines the maximum number of characters to display in an entry in the suggestion box.
+            For more information about the search panel functions, refer to the CentraSite online documentation's section "Administering the CentraSite Business UI -> Managing the CentraSite Catalog"
+            -->
+      <!--       <TypeAheadSearch minOffsetToStartSearch="3" numOfResultsToShow="5" maxCharactersToShow="60"/>
+            <BrowseLink visiblity="true" displayName="CS_MSG_INMBU_LINK_BROWSE" token="browse:browse" /> -->
+
+            <!-- ACTIVITIES CONFIGURATION
+                Properties for customizing the list of activities available with CentraSite.
+                The activities are located on the right side of the screen directly below the header panel.
+                @noOfActivitiesInMainNav - defines the number of activities to display in the navigation panel. Any remaining activities are included in the "More" section autotically.
+            -->
+          <!--   <Activities noOfActivitiesInMainNav="5"> -->
+                <!-- @numOfProfilesPerRow - defines the number of profiles to display in the Create Asset wizard. A profile includes one or more mandatory attributes of the asset.
+                -->
+               <!--  <Activity id="CreateAssetBui" refId="Create Assets" numOfProfilesPerRow="3" token="activity:Create_Assets" />
+        		<Activity id="GlobalReportsBui" refId="Global Reports" token="activity:Global_Reports" />
+        		<Activity id="ManageOrganizationBui" refId="Manage Organizations" token="activity:Manage_Organizations" />
+        		<Activity id="ManageGovernaceRulesBui" refId="ManageGovernanceRules" token="activity:governance_rules" />
+				    <Activity id="ManageTaxonomiesBui" refId="ManageTaxonomies" token="activity:manage_taxonomies" />
+        		<Activity id="Asset Navigator" refId="Asset Navigator" token="activity:Asset_Navigator" />
+            </Activities>
+        </NavigationPanel> -->
+
+        <!-- EXTENSION POINTS
+        List of extension points available with CentraSite.
+        @src - denotes the location of the BUI Extension implemantaion module.
+        @custom - a value of "true" denotes that a custom lugin is available for use with the extensionpoint in the extension module.
+        For more information about the extension points, refer to the CentraSite online documentation's section "Administering the
+        CentraSite Business UI -> CentraSite Business User Interface Pluggable Architecture -> Customizing the Contents Page -> Extension Points"
+        -->
+       <!--  <Extensions src="">centrasitebuiextension/centrasitebuiextension.nocache.js
+            <ExtensionPointLogin custom="false" />
+            <ExtensionPointRegister custom="false" />
+            <ExtensionPointBrowseView custom="false" />
+            <ExtensionPointBrowseCriteria custom="false" />
+            <ExtensionPointSearchWidget custom="false" />
+            <ExtensionPointSearch custom="false" />
+            <ExtensionPointSearchCriteria custom="false" />
+            <ExtenstionPointAssetDetails custom="false" />
+
+            Places entitled to pass as placechangeevent to the extension.
+                 Add the fully qualified name of the place class which is required to pass to the extension.
+            <ExtensionPlaces protected="true">
+                <ExtensionPlace className="com.softwareag.centrasite.bui.client.place.home.ExtensionPlace"/>
+            </ExtensionPlaces>
+
+            <PolicyActions>
+                <PolicyAction id="" class="" />
+            </PolicyActions>
+
+        </Extensions>
+
+        <Search> -->
+
+            <!--@noOfRows - defines the number of assets to display in the search results page.-->
+            <!-- <SearchResult noOfRows="20" /> -->
+
+            <!-- Defines the maximum number of characters to display in an attribute in the "View" drop-down -->
+           <!--  <AttributeDisplaySize>10</AttributeDisplaySize> -->
+
+            <!-- SEARCH RECIPE CONFIGURATION
+                The search recipe includes one or more search filters that help to focus the search on particular registry objects -->
+           <!--  <SearchRecipe> -->
+              <!-- Properties for deleting an existing search recipe -->
+                <!-- <DeleteImage>
+                    <UpState>images/system/ctrl_DeleteKeyword_up_14X14.png</UpState>
+                    <OverState tooltip="CS_MSG_INMBU_RECIPE_REMOVE">images/system/ctrl_DeleteKeyword_over_14X14.png
+                    </OverState>
+                </DeleteImage>
+            </SearchRecipe> -->
+
+            <!-- SEARCH FILTERS CONFIGURATION
+                List of search filters available with CentraSite.
+                For more information on the search filters, refer to the CentraSite online documentation's section "Administering the CentraSite Business UI -> Managing the CentraSite Catalog -->
+            <!-- <SearchFilterCategories>
+                <SearchFilterCategory id="Types" displayName="CS_MSG_INMBU_STR_ASSET_TYPES">
+                </SearchFilterCategory>
+                <SearchFilterCategory id="Taxonomy" displayName="CS_MSG_INMBU_STR_TAXONOMIES">
+                </SearchFilterCategory>
+                <SearchFilterCategory id="FurtherAttribute" displayName="CS_MSG_INMBU_STR_FURTHER_ATTRIBUTES">
+                </SearchFilterCategory>
+                <SearchFilterCategory id="LCM" displayName="CS_MSG_INMBU_STR_LCM">
+                </SearchFilterCategory>
+            </SearchFilterCategories>
+        </Search>    -->
+
+        <!-- IMAGE CONFIGURATION
+            List of images available with CentraSite.
+            This includes a set of predefined images. In addition a user can define custom images. -->
+    <!-- <Images>
+            <MoreIcon tooltip="CS_MSG_INMBU_LBL_MORE_ICON_TOOLTIP">images/system/ctrl_MoreSata_16X15_up_State1.png</MoreIcon>
+            <LessIcon tooltip="CS_MSG_INMBU_LBL_LESS_ICON_TOOLTIP">images/system/ctrl_MoreData_16X15_up_State2.png</LessIcon>
+            <WatchersSmallIcon tooltip="CS_MSG_INMBU_LBL_WATCHERS_ICON_TOOLTIP">images/system/watch_16X16.png</WatchersSmallIcon>
+            <PendingApprovalsSmallIcon tooltip="CS_MSG_INMBU_LBL_PENDING_APPROVALS_ICON_TOOLTIP">images/system/pending_approval_16X16.png</PendingApprovalsSmallIcon>
+            <ConsumersSmallIcon tooltip="CS_MSG_INMBU_LBL_CONSUMERS_ICON_TOOLTIP">images/system/consume_16X16.png</ConsumersSmallIcon>
+            <SearchIcon>images/system/SearchButton.png</SearchIcon>
+            <SearchRTLIcon>images/system/SearchButton_rtl.png</SearchRTLIcon>
+            <Image id="closeHover24X24" tooltip="CS_MSG_INMBU_IMG_CLOSE">images/system/ctrl_DeleteKeyword_over_14X14.png</Image>
+            <Image id="close24X24" tooltip="CS_MSG_INMBU_IMG_CLOSE">images/system/ctrl_DeleteKeyword_up_14X14.png</Image>
+            <Image id="collapse24X24" tooltip="CS_MSG_INMBU_IMG_MINIMIZE_TOOLTIP">images/system/ico_Widget_Collapse_24X24_active.png</Image>
+            <Image id="collapseHover24X24" tooltip="CS_MSG_INMBU_IMG_MINIMIZE_TOOLTIP">images/system/ico_Widget_Collapse_24X24_hover.png</Image>
+            <Image id="expand24X24" tooltip="CS_MSG_INMBU_IMG_EXPAND_TOOLTIP">images/system/ico_Widget_Expand_24X24_active.png</Image>
+            <Image id="expandHover24X24" tooltip="CS_MSG_INMBU_IMG_EXPAND_TOOLTIP">images/system/ico_Widget_Expand_24X24_hover.png</Image>
+            <Image id="loadingImage" tooltip="CS_MSG_INMBU_IMG_LOADING_TOOLTIP">images/system/loading.gif</Image>
+            <Image id="searchButton" tooltip="">images/system/SearchButton.png</Image>
+            <Image id="searchButtonRTL" tooltip="">images/system/SearchButton_rtl.png</Image>
+            <Image id="separatorGray1X1" tooltip="">images/system/Separator_Gray_1X1.png</Image>
+            <Image id="separatorWhite1X1" tooltip="">images/system/Separator_White_1X1.png</Image>
+            <Image id="spacer" tooltip="">images/system/spacer.gif</Image>
+            <Image id="successSystemWide32" tooltip="">images/system/Success_system_wide_32.png</Image>
+            <Image id="warningSystemWide32" tooltip="">images/system/Warning_system_wide_32.png</Image>
+			<Image id="warning16X16" tooltip="">images/system/warning_16x16.png</Image>
+            <Image id="watch16X16" tooltip="">images/system/watch_16X16.png</Image>
+            <Image id="whiteAreaShadow1X3" tooltip="">images/system/White_Area_Shadow_1X3.png</Image>
+            <Image id="arrowAscending" tooltip="">images/system/arrow_ascending.png</Image>
+            <Image id="arrowAscendingHover" tooltip="">images/system/arrow_ascending_hover.png</Image>
+            <Image id="arrowDescending" tooltip="">images/system/arrow_descending.png</Image>
+            <Image id="arrowDescendingHover" tooltip="">images/system/arrow_descending_hover.png</Image>
+            <Image id="arrowFilterField6X11Closed" tooltip="">images/system/arrow_filter_field_6X11_closed.png</Image>
+            <Image id="arrowFilterField6X11ClosedRTL" tooltip="">images/system/arrow_filter_field_6X11_closed_RTL.png</Image>
+            <Image id="arrowFilterField11X6" tooltip="">images/system/arrow_filter_field_11X6.png</Image>
+            <Image id="avatarCompany" tooltip="">images/system/avatar_company.png</Image>
+            <Image id="avatarUser" tooltip="">images/system/avatar_user.png</Image>
+            <Image id="bottom" tooltip="">images/system/bottom.png</Image>
+            <Image id="consume16X16" tooltip="">images/system/consume_16X16.png</Image>
+            <Image id="full16X16" tooltip="">images/system/ico_permission_full.png</Image>
+            <Image id="write16X16" tooltip="">images/system/ico_permission_modified.png</Image>
+            <Image id="read16X16" tooltip="">images/system/ico_permission_view.png</Image>
+            <Image id="ctrlAddDisabled21X23" tooltip="CS_MSG_INMBU_LBL_ADD_ICON">images/system/ctrl_add_disabled_21X23.png</Image>
+            <Image id="ctrlAddEnabled21X23" tooltip="CS_MSG_INMBU_LBL_ADD_ICON">images/system/ctrl_add_enabled_21X23.png</Image>
+            <Image id="ctrlDeleteKeywordOver14X14" tooltip="">images/system/ctrl_DeleteKeyword_over_14X14.png</Image>
+            <Image id="ctrlDeleteKeywordUp14X14" tooltip="">images/system/ctrl_DeleteKeyword_up_14X14.png</Image>
+            <Image id="ctrlMoreLessArrowDown" tooltip="">images/system/ctrl_more_less_arrow_down.png</Image>
+            <Image id="ctrlMoreLessArrowHoverDown" tooltip="">images/system/ctrl_more_less_arrow_hover_down.png</Image>
+            <Image id="ctrlMoreLessArrowHoverUp" tooltip="">images/system/ctrl_more_less_arrow_hover_up.png</Image>
+            <Image id="ctrlMoreLessArrowUp" tooltip="">images/system/ctrl_more_less_arrow_up.png</Image>
+            <Image id="ctrlMoreData16X15UpState2" tooltip="">images/system/ctrl_MoreData_16X15_up_State2.png</Image>
+            <Image id="ctrlMoreData16X15UpState1" tooltip="">images/system/ctrl_MoreSata_16X15_up_State1.png</Image>
+            <Image id="ctrlSortArrowDown" tooltip="">images/system/ctrl_sort_arrow_down.png</Image>
+            <Image id="ctrlSortArrowHoverDown" tooltip="">images/system/ctrl_sort_arrow_hover_down.png</Image>
+            <Image id="ctrlSortArrowHoverUp" tooltip="">images/system/ctrl_sort_arrow_hover_up.png</Image>
+            <Image id="ctrlSortArrowUp" tooltip="">images/system/ctrl_sort_arrow_up.png</Image>
+            <Image id="ctrlSubtract21X23Disabled" tooltip="CS_MSG_INMBU_LBL_REMOVE_ICON">images/system/ctrl_Substract_21X23_disabled.png</Image>
+            <Image id="ctrlSubtract21X23Up" tooltip="CS_MSG_INMBU_LBL_REMOVE_ICON">images/system/ctrl_Substract_21X23_up.png</Image>
+            <Image id="ctrlSubtract21X23UpComplete" tooltip="CS_MSG_INMBU_LBL_REMOVE_ICON">images/system/ctrl_Substract_21X23_up_complete.png</Image>
+            <Image id="ctrlSubtract21X23Uprtl" tooltip="CS_MSG_INMBU_LBL_REMOVE_ICON">images/system/ctrl_Substract_21X23_up_rtl.png</Image>
+            <Image id="dropDownArrow9X5" tooltip="">images/system/DropDown_Arrow_9X5.png</Image>
+            <Image id="errorSystemWide32" tooltip="">images/system/error_system_wide_32.png</Image>
+            <Image id="iconAddAvatar" tooltip="">images/system/ico_add_avatar.png</Image>
+            <Image id="attributesSeparator1X1" tooltip="">images/system/img_Attributtes_Separator_1X_1X.png</Image>
+            <Image id="warning21X23" tooltip="">images/system/img_warning_21X23.png</Image>
+            <Image id="warning21X26" tooltip="">images/system/img_warning_21X26.png</Image>
+            <Image id="info" tooltip="">images/system/info.png</Image>
+            <Image id="information" tooltip="">images/system/information.png</Image>
+            <Image id="iconHover" tooltip="">images/system/information_hover.png</Image>
+            <Image id="informationSystemWide32" tooltip="">images/system/Information_system_wide_32.png</Image>
+            <Image id="line" tooltip="">images/system/Line.png</Image>
+            <Image id="mobile" tooltip="">images/system/mobile.png</Image>
+            <Image id="phone" tooltip="">images/system/phone.png</Image>
+            <Image id="activeCloseButton" tooltip="">images/system/ico_Close_16X16_active.png</Image>
+            <Image id="activeCollapseButton" tooltip="">images/system/ico_Widget_Collapse_16X16_active.png</Image>
+            <Image id="hoverCloseButton" tooltip="">images/system/ico_Close_16X16_hover.png</Image>
+            <Image id="hoverCollapseButton" tooltip="">images/system/ico_Widget_Collapse_16X16_hover.png</Image>
+            <Image id="activeExpandButton" tooltip="">images/system/ico_Widget_Expand_16X16_active.png</Image>
+            <Image id="hoverExpandButton" tooltip="">images/system/ico_Widget_Expand_16X16_hover.png</Image>
+            <Image id="activeSettingsButton" tooltip="">images/system/ico_Widget_Settings_16X16_active.png</Image>
+            <Image id="hoverSettingsButton" tooltip="">images/system/ico_Widget_Settings_16X16_hover.png</Image>
+            <Image id="globeButton" tooltip="">images/system/ico_Widget_Settings_16X16_globe.png</Image>
+            <Image id="buttonLeft" tooltip="">images/system/Button_Left_Border.png</Image>
+            <Image id="buttonMiddle" tooltip="">images/system/Button_Center_Border.png</Image>
+            <Image id="buttonRight" tooltip="">images/system/Button_Right_Border.png</Image>
+            <Image id="buttonLeftHover" tooltip="">images/system/button_focused_start.png</Image>
+            <Image id="buttonRightHover" tooltip="">images/system/button_focused_end.png</Image>
+            <Image id="userImage" tooltip="">images/system/user_16.gif</Image>
+            <Image id="groupImage" tooltip="">images/system/group_16.gif</Image>
+            <Image id="deleteSmallImage" tooltip="">images/system/csbui_delete_item.png</Image>
+			<Image id="settingsImage">images/system/ico_Widget_Settings_16X16.png</Image>
+			<Image id="warningImage">images/system/img_warning_16X16.png</Image>
+            <Image id="transparentloading">images/system/transparentloading.png</Image> -->
+
+            <!-- AVATAR CONFIGURATION
+            Defines the display properties of an avatar that represents the organizations and users in the asset details page -->
+           <!--  <AvatarImage>
+                <Width>100</Width>
+                <Height>100</Height>
+                <Unit>PX</Unit>
+            </AvatarImage>
+        </Images> -->
+
+        <!-- PORTLET CONFIGURATION
+            List of design-time/change-time and run-time portlets available with CentraSite.
+            This includes a set of predefined portlets. In addition user can define custom portlets.
+            For more information about adding a portlet via configuration file, refer to the CentraSite online documentation's section "Administering the
+            CentraSite Business UI -> CentraSite Business User Interface Pluggable Architecture -> Customizing the Contents Page -> Extension Points -> Add Custom Portlet" -->
+
+        <!--    @portletsPerRow - defines the number of portlets to render in a single row in the Welcome page.
+                @settingsPopupColumnCount - defines the number of portlet columns to render in the Configure Your Welcome Page dialog.
+                @helpToken - a deepLink token directing the user to the online Help Center.
+                @headerMaxCharacterLength - defines the maximum number of characters to display in the portlet title.
+        -->
+       <!--  <PortletConfigurations portletsPerRow="3" settingsPopupColumnCount="2" helpToken="HELPCENTER_007" headerMaxCharacterLength="27"> -->
+            <!-- A set of portlets are rendered on the UI based on the following configurations:
+           @description - a description for the portlet.
+           @type - the type of portlet you want to display in the UI - supported types: Text / Graphic / IFrame.
+           @dataFeed - unique identifier of the saved search query that provides the data for display in the portlet.
+           @icon - URL of the icon that is to be used to represent the portlet in UI.
+           @row - defines the row number to position a portlet.
+           @column - defines the column number to position a portlet.
+           @isVisible - defines the visiblity of a portlet in the Welcome page.
+           @refreshInterval - refresh interval for a portlet (in milliseconds).
+           @actions - list of actions applicable for a portlet.
+            -->
+            <!-- <Portlets>
+                <Portlet id="MyFavoritesPortlet" description="INMBU_STR_PORTLET_FAVORITES_DESC" type="text"
+                       dataFeed="MyFavorites" icon="images/system/favorites_16X16.png" row="0" column="0"
+                       isVisible="true" refreshInterval="0" actions="configure,refresh">
+                    INMBU_STR_PORTLET_NAME_MY_FAVORITES
+                </Portlet>
+                <Portlet id="TopXServicesBasedOnInvocationsPortlet" description="INMBU_STR_PORTLET_TOPX_SERVICES_BASED_ON_INVOCATIONS"
+                       type="text" dataFeed="TopXServicesBasedOnInvocations" icon="images/system/highest_invocation_16X16.png"
+                       row="0" column="1" isVisible="true" refreshInterval="0" actions="configure,refresh">
+                    INMBU_STR_PORTLET_NAME_TOPX_SERVICES
+                </Portlet>
+                <Portlet id="RecentLifecycleChangesPortlet" description="INMBU_STR_PORTLET_RECENT_LIFECYCLE_CHANGES_DESC"
+                       type="text" dataFeed="RecentLifecycleChanges" icon="images/system/recent_lifecycle_changed_16X16.png"
+                       row="0" column="2" isVisible="true" refreshInterval="0" actions="configure,refresh">
+                    INMBU_STR_PORTLET_NAME_RECENT_LCM_CHANGES
+                </Portlet>
+                <Portlet id="LastCreatedAssetsPortlet" description="INMBU_STR_PORTLET_RECENTLY_CREATED_ASSETS_DESC"
+                       type="text" dataFeed="LastCreatedAssets" icon="images/system/recently_created_16X16.png" row="1"
+                       column="0" isVisible="true" refreshInterval="0" actions="configure,refresh">
+                    INMBU_STR_PORTLET_NAME_LAST_CREATED_ASSETS
+                </Portlet>
+                <Portlet id="MySavedSearchesPortlet" description="INMBU_STR_PORTLET_SAVED_SEARCH_DESC"
+                       type="text" dataFeed="MySavedSearches" icon="images/system/saved_searches_16X16.png" row="1" column="1"
+                       isVisible="true" refreshInterval="0" actions="configure,refresh">
+                    INMBU_STR_PORTLET_NAME_MY_SAVED_SEARCHES
+                </Portlet>
+                <Portlet id="MyPendingApprovalRequestsPortlet" description="INMBU_STR_PORTLET_PENDING_APPROVAL_DESC"
+                    type="text" dataFeed="MyPendingApprovalRequests" icon="images/system/pending_approval_16X16.png" row="1" column="2"
+                    isVisible="true" refreshInterval="0" actions="configure,refresh">
+                    INMBU_STR_PORTLET_NAME_MY_PENDING_APPROVALS
+                </Portlet>
+            </Portlets>
+            <PortletActions>
+                <PortletAction id="configure">INMBU_STR_PORTLET_ACTION_EDIT</PortletAction>
+                <PortletAction id="refresh">INMBU_STR_PORTLET_ACTION_REFRESH</PortletAction>
+            </PortletActions> -->
+
+            <!-- PORTLET PARAMETER CONFIGURATION
+                A portlet in the Welcome page includes one or more predefined parameters. The parameters determine which data to display in the portlet.
+                @ref - unique identifier for the porlet
+                @params - parameters of a portlet. for the porlet parameter
+                Each parameter definition includes a set of attributes - VSEP(Value separator), PSEP(Param separator) and ASEP(Array separator).
+                      VSEP denotes a parameter name and value, PSEP denotes a set of parameter names and ASEP denotes an array of parameter values.
+            -->
+           <!--  <PortletParameters>
+                <PortletParameter id="RecentLifecycleChangesPortletParam" ref="RecentLifecycleChangesPortlet"
+                                params="noOfDaysPast#VSEP#10" attributes="" />
+                <PortletParameter id="LastCreatedAssetsPortletParam" ref="LastCreatedAssetsPortlet"
+                                params="noOfAssetsToReturn#VSEP#10#PSEP#assetTypeKeys#VSEP#uddi:cd906138-59f5-4d7f-4f5f-6115adfa8d9c"
+                                attributes="" />
+                <PortletParameter id="TopXServicesBasedOnInvocationsPortletParam" ref="TopXServicesBasedOnInvocationsPortlet"
+                                params="noOfServicesToReturn#VSEP#10#PSEP#noOfDaysPast#VSEP#10" attributes=""/>
+                <PortletParameter id="MyFavoritesPortletParam" ref="MyFavoritesPortlet"
+                                params="noOfAssets#VSEP#10" attributes=""/>
+                <PortletParameter id="MySavedSearchesParam" ref="MySavedSearchesPortlet"
+                                params="noOfSearchesToReturn#VSEP#10" attributes="" />
+                <PortletParameter id="MyPendingApprovalRequestsPortletParam" ref="MyPendingApprovalRequestsPortlet"
+                                params="noOfPendingApprovals#VSEP#10" attributes=""/> -->
+                <!--  By default, the following predefined portlets are disabled from rendering in the UI. However, if you want to render these portlets, simply comment the portlets as required.
+                <PortletParameter id="MyListPortletParam" ref="MyListPortlet"
+                                params="noOfListsToReturn#VSEP#15" attributes=""/>
+                <PortletParameter id="TopXConsumersBasedOnRuntimeInvocationsPortletParam" ref="TopXConsumersBasedOnRuntimeInvocationsPortlet"
+                                params="noOfConsumersToReturn#VSEP#10" attributes=""/>
+                -->
+          <!--   </PortletParameters> -->
+
+            <!--    GRAPHICAL PORTLET CONFIGURATION
+            List of properties unique for a graphical portlet configuration
+              @ref - unique identifier for the portlet.
+              @type - type of graphical chart [possible values: Bar, Line, Pie]
+              @showPlotValue - show or hide hide the data value of a bar, line or pie plot [possible values: true, false].
+              @isPlotDiffColor - show each bar, line or pie plot in a different color [possible values: true, false].
+              @plotValuePosition - defines the position of the data value in a bar, line or pie plot [possible values: START, END and OUTSIDE]
+              @colors - defines the colors to include in each plot as hexcode
+              @showlegend - show or hide legents in the chart [possible values: true, false]
+              @showtooltip - show or hide tooltips in the chart[possible values: true, false]
+              @xlabel - a label to display for the x-axis of chart
+              @ylabel - a label to display of the y-axis of chart
+            -->
+           <!--  <ChartConfigurations>
+                <ChartConfiguration id="" ref="" type="Bar" plotValuePosition="" colors="" showlegend="true" showtooltip="" xlabel="" ylabel="" />
+                General color code used for chart rendering
+                <Colors>
+                  <Color id="#233356">OceanBlue</Color>
+                  <Color id="#038299">LagunaBlue</Color>
+                  <Color id="#508400">ProgressGreen</Color>
+                  <Color id="#BADCE2">LightBlue</Color>
+                  <Color id="#BBE282">LightGreen</Color>
+                </Colors>
+                <LineChartMaxInterval>50</LineChartMaxInterval>
+                <BarChartMaxInterval>50</BarChartMaxInterval>
+                   Default value for Runtime Metrics Profile - Display interval
+                <MetricsDisplayInterval>1h</MetricsDisplayInterval>
+                <EventsDisplayInterval>1h</EventsDisplayInterval>
+            </ChartConfigurations>
+        </PortletConfigurations> -->
+
+        <!-- HELP CENTER CONFIGURATION
+            List of online help topcis in the UI.
+            For more information about the online help topics, refer to the refer to the CentraSite online documentation's section "Administering the
+            CentraSite Business UI -> Working with the Business User Interface -> Using the CentraSite Help Center" -->
+       <!--  <HelpCenter>
+            @src - defines the location of helpcenter icons
+            <ICON src="system" />
+            <Inbox helpToken="HELPCENTER_001" />
+            <UserPreference helpToken="HELPCENTER_008" />
+            <CreateAssets helpToken="HELPCENTER_002" />
+            <GlobalReports helpToken="HELPCENTER_010" />
+            <Virtualization helpToken="HELPCENTER_011" />
+        </HelpCenter>
+ -->
+               <!--  <ApiKeySettings>
+                    <KeyGenerationSettings>
+                        <Approve subject="CS_MSG_INMBU_DEFAUL_EMAIL_SUBJECT_ACCESS_KEY_GENERATION_SUCCESS_OR_APPROVE" template="APIKeyGenerationSuccess.html" />
+                        <ApprovalRequest subject="CS_MSG_INMBU_DEFAUL_EMAIL_SUBJECT_ACCESS_KEY_GENERATION_PENDING" template="PendingApprovalNotification.html" />
+                        <Reject subject="CS_MSG_INMBU_DEFAUL_EMAIL_SUBJECT_ACCESS_KEY_GENERATION_REJECT" template="RejectionNotification.html" />
+                    </KeyGenerationSettings>
+                    <KeyRenewalSettings>
+                         <Approve subject="CS_MSG_INMBU_DEFAUL_EMAIL_SUBJECT_ACCESS_KEY_RENEWAL_SUCCESS_OR_APPROVE" template="APIKeyRenewalSuccess.html" />
+                        <ApprovalRequest subject="CS_MSG_INMBU_DEFAUL_EMAIL_SUBJECT_ACCESS_KEY_RENEWAL_PENDING" template="APIKeyRenewalPendingNotification.html" />
+                        <Reject subject="CS_MSG_INMBU_DEFAUL_EMAIL_SUBJECT_ACCESS_KEY_RENEWAL_REJECT" template="RejectionNotification.html" />
+                    </KeyRenewalSettings>
+                    <KeyRevocationSettings>
+                        <Approve subject="CS_MSG_INMBU_DEFAUL_EMAIL_SUBJECT_ACCESS_KEY_REVOCATION_NOTIFICATION" template="APIKeyRevocationSuccess.html" />
+                    </KeyRevocationSettings>
+                </ApiKeySettings>
+      -->
+
+		<!--
+		 Settings for configuring the rendering of asset details page in BusinessUI.
+			@newRenderingMode - Renders the asset details page in the new rendering (with
+			a left side navigation panel and a right side content panel) if "true". If
+			"false", the asset details page is rendered in the old mode. Default value:
+			"true".
+			@navigationPanelMaxCharLength - The width of the left side navigation
+			panel for the new rendering mode, configured by the maximum number of characters
+			for displaying the profile name. If a profile name exceeds the given value,
+			it will be shown truncated after the specified length. Default value: "25"
+		-->
+		<!--
+		<AssetDetailSettings newRenderingMode="true" navigationPanelMaxCharLength="25" />
+     	 -->
+
+ </UIProperties>
+</GUIConfiguration>

@@ -1,0 +1,46 @@
+    ----------------------------------------
+    RCM - The Resource Configuration Manager
+    ----------------------------------------
+
+RCM - The Resource Configuration Manager
+
+  RCM (Resource Configuration Manager) is a Java tool, that aims to solve the problem of managing the resources, on which your
+  application depends. We use the term resource in a very broad sense: Resource examples might be
+
+    * A database table, or schema, which must be present.
+  
+    * A user account, with password, that must be present.
+  
+    * A JMS queue, from which you intend to read messages.
+  
+    * Whatever else you can think of.
+
+  RCM takes care of these things by incrementally applying a set of resource changes, as specified by the RCM
+  user. Such resource changes might be given by
+
+   * An SQL script, which creates a database table, or schema.
+
+   * An XML, or JSON file, which specifies the details of the user account, that must be created.
+
+   * An XML, or JSON file, which specifies the details of a JMS queue, that you want to be created.
+
+   * Whatever else you can think of.
+ 
+  The ideas are very much comparable to {{{https://flywaydb.org/}Flyway}}. However, RCM intends to extend Flyway by not
+  limiting itself to databases, and SQL. Instead, RCM is designed to support arbitrary resources:
+
+    [[1]] It is based on a plugin system. Support for new resource types is added by creating plugins.
+          No need to enhance RCM itself.
+
+    [[2]] Even RCM's builtin support for configuring SQL databases via SQL scripts, and JDBC, is implemented by a set of
+          plugins.
+
+    [[3]] Dependency injection is used to simplify plugins. Besides, this mechanism allows to replace builtin
+    components with custom implementations: It's aim is to do exactly what you want. If a component doesn't really suit
+    your needs, replace it.
+
+* A first example
+
+    Now, without further ado, let's continue with {{{./first_example.html}an example}}.
+
+

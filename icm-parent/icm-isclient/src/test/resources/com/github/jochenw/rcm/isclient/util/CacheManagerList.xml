@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- Response of wm.server.ehcache.admin:getCacheManagers -->
+<Values version="2.0">
+  <value name="&lt;?xml version">'1.0' encoding='UTF-8'?&gt;&lt;Values version='2.0'
+
+</value>
+  <array name="publicCacheManagers" type="record" depth="1">
+  </array>
+  <array name="systemCacheManagers" type="record" depth="1">
+    <record javaclass="com.wm.util.Values">
+      <value name="cacheManagerName">SoftwareAG.IS.ART</value>
+      <value name="diskStorePath">./cacheStore/SoftwareAG-IS-ART</value>
+      <value name="status">STATUS_ALIVE</value>
+    </record>
+    <record javaclass="com.wm.util.Values">
+      <value name="cacheManagerName">SoftwareAG.IS.Core</value>
+      <value name="diskStorePath">./cacheStore/SoftwareAG-IS-Core</value>
+      <value name="status">STATUS_ALIVE</value>
+    </record>
+    <record javaclass="com.wm.util.Values">
+      <value name="cacheManagerName">SoftwareAG.IS.PE</value>
+      <value name="diskStorePath">./cacheStore/SoftwareAG-IS-PE</value>
+      <value name="status">STATUS_ALIVE</value>
+    </record>
+    <record javaclass="com.wm.util.Values">
+      <value name="cacheManagerName">SoftwareAG.IS.Services</value>
+      <value name="diskStorePath">./cacheStore/SoftwareAG-IS-Services</value>
+      <value name="status">STATUS_ALIVE</value>
+    </record>
+    <record javaclass="com.wm.util.Values">
+      <value name="cacheManagerName">SoftwareAG.IS.WMN</value>
+      <value name="diskStorePath">./cacheStore/SoftwareAG-IS-WMN</value>
+      <value name="status">STATUS_ALIVE</value>
+    </record>
+  </array>
+</Values>
