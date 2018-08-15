@@ -1,0 +1,8 @@
+Manifest-Version: 1.0
+
+Name: com/github/jochenw/icm/core
+Implementation-Title: icm-core
+Implementation-Version: 0.1
+Implementation-Vendor: "Jochen Wiedmann"
+
+

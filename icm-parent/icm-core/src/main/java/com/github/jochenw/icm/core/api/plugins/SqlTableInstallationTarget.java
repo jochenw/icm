@@ -43,7 +43,7 @@ public class SqlTableInstallationTarget<V> implements IcmInstallationTarget<V> {
 
 	public String getTableName() {
 		if (tableName == null) {
-			return "RCM_CHANGES";
+			return "ICM_CHANGES";
 		} else {
 			return tableName;
 		}
@@ -107,7 +107,7 @@ public class SqlTableInstallationTarget<V> implements IcmInstallationTarget<V> {
 							stmt.executeUpdate();
 						}
 					}
-					insert(pConnection, 0, "0.0.0", "$RCM$-Schema", "sql");
+					insert(pConnection, 0, "0.0.0", "$ICM$-Schema", "sql");
 				} else {
 					final String selectSql = sqlAdapter.createSelect(getSchemaName(), getTableName())
 							.resultColumn("MAX(id)", "max_id")

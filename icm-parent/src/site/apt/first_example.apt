@@ -22,9 +22,9 @@ A first example
 
     * {{{#The_property_file}A property file}}
 
-  And finally, let's see how we use these files with RCM:
+  And finally, let's see how we use these files with ICM:
   
-    * {{{#Running_RCM}Running RCM}}
+    * {{{#Running_ICM}Running ICM}}
 
 * Creating the FOO table
 
@@ -49,7 +49,7 @@ CREATE TABLE FOO (
     1. The first two lines are comment lines. They will be ignored, when the SQL script is being executed.
 
     2. These two lines contain so-called {{{./concepts/annotations.html}annotations}}.
-       RCM uses these annotations to collect information about the script.
+       ICM uses these annotations to collect information about the script.
 
     3. In particular, note the "type", and the "version" attributes,  that are being configured
        as part of the <<@IcmChange>> annotation. These indicate, that the file contains an SQL script
@@ -105,7 +105,7 @@ INSERT INTO BAR (id, fooId, name) VALUES (1, 1, 'A BAR instance');
 
     3. CreateBarTable.sql
 
-  Now the question: How do we ensure, that RCM observes that order? The answer is given by the @IcmChange annotations, and the "version" attribute: Scripts with a lower
+  Now the question: How do we ensure, that ICM observes that order? The answer is given by the @IcmChange annotations, and the "version" attribute: Scripts with a lower
   version number are being executed first.
 
 * The property file
@@ -125,13 +125,13 @@ jdbc.shutdownUrl=${jdbc.baseUrl};shutdown=true
 
   For a detailed explanation of these properties, see {{{./concepts/SqlScriptResourceInstaller.html}SqlScriptResourceInstaller}}.
 
-* Running RCM
+* Running ICM
 
-  Assuming, that all these files are located in <<<src/main/rcm/MyFirstExample>>>, we could run RCM like this:
+  Assuming, that all these files are located in <<<src/main/icm/MyFirstExample>>>, we could run ICM like this:
 
 +---------------------
-   Rcm<RcmChangeNumber> rcm = Rcm.builder()
-                                 .properties("src/main/rcm/MyFirstExample/rcm.properties")
-                                 .resourceDirectory("src/main/rcm")
+   Icm<IcmChangeNumber> icm = Icm.builder()
+                                 .properties("src/main/icm/MyFirstExample/icm.properties")
+                                 .resourceDirectory("src/main/icm")
                                  .
 +---------------------

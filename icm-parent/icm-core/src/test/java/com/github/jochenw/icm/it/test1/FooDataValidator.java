@@ -7,7 +7,7 @@ import java.sql.SQLException;
 
 import javax.inject.Inject;
 
-import com.github.jochenw.icm.core.api.AbstractClassExecutionResource;
+import com.github.jochenw.icm.core.api.AbstractClassExecutionChange;
 import com.github.jochenw.icm.core.api.IcmChangeInstaller.Context;
 import com.github.jochenw.icm.core.api.plugins.JdbcContext;
 import com.github.jochenw.icm.core.api.plugins.JdbcContextProvider;
@@ -17,7 +17,7 @@ import com.github.jochenw.icm.core.util.Exceptions;
 
 @IcmChange(name="FooDataValidator", version="0.0.3",
              description="Validates the data in the FOO table")
-public class FooDataValidator extends AbstractClassExecutionResource {
+public class FooDataValidator extends AbstractClassExecutionChange {
 	@Inject private SqlStatementExecutor stmtExecutor;
 
 	@Override

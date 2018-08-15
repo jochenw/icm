@@ -2,8 +2,8 @@
  */
 
 import groovy.sql.Sql;
-import com.github.jochenw.rcm.core.api.plugins.JdbcContext;
-import com.github.jochenw.rcm.core.api.plugins.JdbcContextProvider
+import com.github.jochenw.icm.core.api.plugins.JdbcContext;
+import com.github.jochenw.icm.core.api.plugins.JdbcContextProvider
  
 def jdbcContext = context.getContextFor(JdbcContextProvider.CONTEXT_ID + "jdbc");
 def sql = new Sql(jdbcContext.getConnection());

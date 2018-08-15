@@ -25,17 +25,17 @@ import com.github.jochenw.icm.core.api.cf.InjectLogger;
 import com.github.jochenw.icm.core.api.log.IcmLogger;
 import com.github.jochenw.icm.core.api.plugins.AbstractChangeInstaller;
 import com.github.jochenw.icm.core.api.plugins.CommandExecutor;
-import com.github.jochenw.icm.core.api.plugins.ResourceInstaller;
 import com.github.jochenw.icm.core.api.plugins.CommandExecutor.ExecutionBuilder;
-import com.github.jochenw.icm.core.api.prop.Interpolator;
+import com.github.jochenw.icm.core.api.plugins.ResourceInstaller;
 import com.github.jochenw.icm.core.api.prop.IcmPropertyProvider;
+import com.github.jochenw.icm.core.api.prop.Interpolator;
 import com.github.jochenw.icm.core.util.Exceptions;
 import com.github.jochenw.icm.core.util.JaxbUtils;
 import com.github.jochenw.icm.core.util.Streams;
-import com.github.namespaces.jochenw.rcm.core.schema.exec._1_0.Commands;
-import com.github.namespaces.jochenw.rcm.core.schema.exec._1_0.TCommand;
-import com.github.namespaces.jochenw.rcm.core.schema.exec._1_0.TCommand.Arg;
-import com.github.namespaces.jochenw.rcm.core.schema.exec._1_0.TCommand.Env;
+import com.github.namespaces.jochenw.icm.core.schema.exec._1_0.Commands;
+import com.github.namespaces.jochenw.icm.core.schema.exec._1_0.TCommand;
+import com.github.namespaces.jochenw.icm.core.schema.exec._1_0.TCommand.Arg;
+import com.github.namespaces.jochenw.icm.core.schema.exec._1_0.TCommand.Env;
 
 @ResourceInstaller
 public class ExecChangeInstaller extends AbstractChangeInstaller {
@@ -259,13 +259,13 @@ public class ExecChangeInstaller extends AbstractChangeInstaller {
 			}
 			if (pFileName == null) {
 				try {
-					path = Files.createTempFile(tmpDir, "rcm-tempfile", ".bin");
+					path = Files.createTempFile(tmpDir, "icm-tempfile", ".bin");
 				} catch (IOException e) {
 					throw new UncheckedIOException("Unable to create temporary file in directory: " + tmpDir.toAbsolutePath(), e);
 				}
 			} else {
 				try {
-					final Path tempDir = Files.createTempDirectory(tmpDir, "rcm-tempdir");
+					final Path tempDir = Files.createTempDirectory(tmpDir, "icm-tempdir");
 					pTempDirs.add(tempDir);
 					path = tempDir.resolve(pFileName);
 				} catch (IOException e) {
@@ -275,13 +275,13 @@ public class ExecChangeInstaller extends AbstractChangeInstaller {
 		} else {
 			if (pFileName == null) {
 				try {
-					path = Files.createTempFile("rcm-tempfile", ".bin");
+					path = Files.createTempFile("icm-tempfile", ".bin");
 				} catch (IOException e) {
 					throw new UncheckedIOException("Unable to create temporary file: " + e.getMessage(), e);
 				}
 			} else {
 				try {
-					final Path tempDir = Files.createTempDirectory("rcm-tempdir");
+					final Path tempDir = Files.createTempDirectory("icm-tempdir");
 					pTempDirs.add(tempDir);
 					path = tempDir.resolve(pFileName);
 				} catch (IOException e) {

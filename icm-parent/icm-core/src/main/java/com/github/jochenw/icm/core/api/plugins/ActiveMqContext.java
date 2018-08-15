@@ -32,7 +32,7 @@ public class ActiveMqContext extends AbstractPropertyConfigurable implements Lif
 				try {
 					String name = getProperty(propertyPrefix, "brokerName");
 					if (name == null) {
-						name = "RcmBroker";
+						name = "IcmBroker";
 					}
 					br = new BrokerService();
 					br.setBrokerName(name);

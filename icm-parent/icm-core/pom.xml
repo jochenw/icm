@@ -1,12 +1,12 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <parent>
-    <groupId>com.github.jochenw.rcm</groupId>
-    <artifactId>rcm-parent</artifactId>
+    <groupId>com.github.jochenw.icm</groupId>
+    <artifactId>icm-parent</artifactId>
     <version>0.1-SNAPSHOT</version>
   </parent>
-  <artifactId>rcm-core</artifactId>
-  <name>RCM (Core)</name>
+  <artifactId>icm-core</artifactId>
+  <name>ICM (Core)</name>
   <version>0.2-SNAPSHOT</version>
   <description>Resource Configuration Manager (Core)</description>
   <dependencies>
@@ -93,17 +93,17 @@
             <configuration>
               <skipXjc>false</skipXjc>
               <sources>
-                <source>src/main/resources/com/github/jochenw/rcm/core/schema/activemq.xsd</source>
-                <source>src/main/resources/com/github/jochenw/rcm/core/schema/tfe.xsd</source>
-                <source>src/main/resources/com/github/jochenw/rcm/core/schema/exec.xsd</source>
+                <source>src/main/resources/com/github/jochenw/icm/core/schema/activemq.xsd</source>
+                <source>src/main/resources/com/github/jochenw/icm/core/schema/tfe.xsd</source>
+                <source>src/main/resources/com/github/jochenw/icm/core/schema/exec.xsd</source>
               </sources>
               <xjbSources>
-                <xjbSource>src/main/resources/com/github/jochenw/rcm/core/schema/activemq.xjb</xjbSource>
-                <xjbSource>src/main/resources/com/github/jochenw/rcm/core/schema/tfe.xsd</xjbSource>
-                <xjbSource>src/main/resources/com/github/jochenw/rcm/core/schema/exec.xsd</xjbSource>
+                <xjbSource>src/main/resources/com/github/jochenw/icm/core/schema/activemq.xjb</xjbSource>
+                <xjbSource>src/main/resources/com/github/jochenw/icm/core/schema/tfe.xsd</xjbSource>
+                <xjbSource>src/main/resources/com/github/jochenw/icm/core/schema/exec.xsd</xjbSource>
               </xjbSources>
               <extension>true</extension>
-              <xsdPathWithinArtifact>META-INF/rcm/schema</xsdPathWithinArtifact>
+              <xsdPathWithinArtifact>META-INF/icm/core/schema</xsdPathWithinArtifact>
             </configuration>
           </execution>
         </executions>

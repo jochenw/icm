@@ -52,6 +52,6 @@ public class XmlPluginRepository extends PluginRepository {
 				}
 			}
 		};
-		new RcmPluginsParser().parse(pSource, classNameConsumer);
+		new IcmPluginsParser().parse(pSource, classNameConsumer);
 	}
 }

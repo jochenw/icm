@@ -10,7 +10,7 @@ import org.junit.Test;
 
 import com.github.jochenw.icm.core.api.prop.IcmPropertyProvider;
 import com.github.jochenw.icm.core.impl.prop.DefaultInterpolator;
-import com.github.jochenw.icm.core.impl.prop.DefaultRcmPropertyProvider;
+import com.github.jochenw.icm.core.impl.prop.DefaultIcmPropertyProvider;
 import com.github.jochenw.icm.core.util.Exceptions;
 
 public class DefaultInterpolatorTest {
@@ -60,7 +60,7 @@ public class DefaultInterpolatorTest {
 	}
 	
 	protected IcmPropertyProvider newPropertyProvider() {
-		return new DefaultRcmPropertyProvider(newProperties());
+		return new DefaultIcmPropertyProvider(newProperties());
 	}
 
 	protected DefaultInterpolator newInterpolator() {

@@ -3,7 +3,7 @@ package com.github.jochenw.icm.core.impl.plugins;
 import javax.inject.Inject;
 
 import com.github.jochenw.icm.core.api.IcmChangeInfo;
-import com.github.jochenw.icm.core.api.RcmClassExecutionResource;
+import com.github.jochenw.icm.core.api.IcmClassExecutionChange;
 import com.github.jochenw.icm.core.api.cf.ComponentFactory;
 import com.github.jochenw.icm.core.api.plugins.AbstractChangeInstaller;
 import com.github.jochenw.icm.core.api.plugins.ResourceInstaller;
@@ -27,7 +27,7 @@ public class ClassExecutor extends AbstractChangeInstaller {
 		}
 		final String className = type.substring("class:".length());
 		final Class<?> clazz = loadClass(className);
-		final RcmClassExecutionResource rcer = newExecutionResource(clazz);
+		final IcmClassExecutionChange rcer = newExecutionResource(clazz);
 		run(rcer, pContext);
 	}
 
@@ -39,9 +39,9 @@ public class ClassExecutor extends AbstractChangeInstaller {
 		}
 	}
 
-	protected RcmClassExecutionResource newExecutionResource(Class<?> pClass) {
+	protected IcmClassExecutionChange newExecutionResource(Class<?> pClass) {
 		try {
-			final RcmClassExecutionResource rcer = (RcmClassExecutionResource) pClass.newInstance();
+			final IcmClassExecutionChange rcer = (IcmClassExecutionChange) pClass.newInstance();
 			componentFactory.init(rcer);
 			return rcer;
 		} catch (Throwable t) {
@@ -49,7 +49,7 @@ public class ClassExecutor extends AbstractChangeInstaller {
 		}
 	}
 
-	protected void run(RcmClassExecutionResource pRcer, Context pContext) {
+	protected void run(IcmClassExecutionChange pRcer, Context pContext) {
 		try {
 			pRcer.run(pContext);
 		} catch (Throwable t) {

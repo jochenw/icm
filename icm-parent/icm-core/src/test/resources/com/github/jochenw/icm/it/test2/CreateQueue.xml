@@ -1,4 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- @IcmChange(name="Create TestQueue queue", type="activemq", version="0.0.1", description="Creates the JMS queue 'TestQueue'") -->
-<createDestination xmlns="http://namespaces.github.com/jochenw/rcm/core/schema/activemq/1.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://namespaces.github.com/jochenw/rcm/core/schema/activemq/1.0.0 ../../../../../../../../main/resources/com/github/jochenw/rcm/core/schema/activemq.xsd "
+<createDestination xmlns="http://namespaces.github.com/jochenw/icm/core/schema/activemq/1.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://namespaces.github.com/jochenw/icm/core/schema/activemq/1.0.0 ../../../../../../../../main/resources/com/github/jochenw/icm/core/schema/activemq.xsd "
                    name="TestQueue" onExists="ignore" type="queue"/>

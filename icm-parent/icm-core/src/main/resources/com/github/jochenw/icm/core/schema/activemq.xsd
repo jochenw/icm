@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema     xmlns:xs="http://www.w3.org/2001/XMLSchema"
+        targetNamespace="http://namespaces.github.com/jochenw/icm/core/schema/activemq/1.0.0"
+              xmlns:tns="http://namespaces.github.com/jochenw/icm/core/schema/activemq/1.0.0"
+     elementFormDefault="qualified">
+  <xs:element name="createDestination">
+    <xs:complexType>
+      <xs:attribute name="name" type="xs:string" use="required"/>
+      <xs:attribute name="type" type="tns:TDestinationType" use="required"/>
+      <xs:attribute name="onExists" type="tns:TCheckExistsType" use="required"/>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="dropDestination">
+    <xs:complexType>
+      <xs:attribute name="name" type="xs:string" use="required"/>
+      <xs:attribute name="type" type="tns:TDestinationType" use="required"/>
+      <xs:attribute name="onExists" type="tns:TCheckExistsType" use="required"/>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:simpleType name="TDestinationType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="queue"/>
+      <xs:enumeration value="topic"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="TCheckExistsType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="ignore"/>
+      <xs:enumeration value="fail"/>
+      <xs:enumeration value="dropAndCreate"/>
+    </xs:restriction>
+  </xs:simpleType>
+</xs:schema>

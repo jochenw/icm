@@ -177,7 +177,7 @@ public class SimpleComponentFactory extends ComponentFactory {
 							public void accept(Object pInstance) {
 								final IcmLoggerFactory loggerFactory = (IcmLoggerFactory) b.getInstance();
 								if (loggerFactory == null) {
-									throw new IllegalStateException("RcmLoggerFactory not available");
+									throw new IllegalStateException("IcmLoggerFactory not available");
 								}
 								final IcmLogger logger = loggerFactory.getLogger(loggerId);
 								setFieldValue(f, pInstance, logger);
@@ -208,7 +208,7 @@ public class SimpleComponentFactory extends ComponentFactory {
 								public void accept(Object pInstance) {
 									final IcmPropertyProvider propertyProvider = (IcmPropertyProvider) b.getInstance();
 									if (propertyProvider == null) {
-										throw new IllegalStateException("RcmPropertyProvider not available");
+										throw new IllegalStateException("IcmPropertyProvider not available");
 									}
 									final String value = propertyProvider.getProperty(propertyKey);
 									setFieldValue(f, pInstance, value);

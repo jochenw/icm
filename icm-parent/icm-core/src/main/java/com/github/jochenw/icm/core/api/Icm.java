@@ -16,17 +16,18 @@ import java.util.function.Consumer;
 import javax.inject.Inject;
 import javax.inject.Named;
 
-import com.github.jochenw.icm.core.api.IcmPluginContext.Committable;
 import com.github.jochenw.icm.core.api.IcmChangeInstaller.Context;
+import com.github.jochenw.icm.core.api.IcmPluginContext.Committable;
 import com.github.jochenw.icm.core.api.cf.ComponentFactory;
-import com.github.jochenw.icm.core.api.cf.InjectLogger;
 import com.github.jochenw.icm.core.api.cf.ComponentFactoryBuilder.Binder;
 import com.github.jochenw.icm.core.api.cf.ComponentFactoryBuilder.Module;
+import com.github.jochenw.icm.core.api.cf.InjectLogger;
 import com.github.jochenw.icm.core.api.log.IcmLogger;
 import com.github.jochenw.icm.core.api.log.IcmLoggerFactory;
 import com.github.jochenw.icm.core.api.plugins.LifeCycleAware;
 import com.github.jochenw.icm.core.util.Exceptions;
 import com.github.jochenw.icm.core.util.Objects;
+
 
 public class Icm<V extends Object> implements Runnable {
 	public static class DetectedResource {
@@ -324,12 +325,12 @@ public class Icm<V extends Object> implements Runnable {
 		logger.debug("install: <-");
 	}
 
-	public static <V> RcmBuilder<IcmChangeNumber> builder() {
+	public static <V> IcmBuilder<IcmChangeNumber> builder() {
 		return builder(IcmChangeNumber.class, new DefaultIcmChangeNumberHandler());
 	}
 
-	public static <V> RcmBuilder<V> builder(Class<V> pVersionClass, IcmChangeNumberHandler<V> pVersionProvider) {
-		final RcmBuilder<V> builder = new RcmBuilder<V>(pVersionClass, pVersionProvider);
+	public static <V> IcmBuilder<V> builder(Class<V> pVersionClass, IcmChangeNumberHandler<V> pVersionProvider) {
+		final IcmBuilder<V> builder = new IcmBuilder<V>(pVersionClass, pVersionProvider);
 		final Module module = new Module() {
 			@Override
 			public void bind(Binder pBinder) {

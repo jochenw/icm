@@ -11,7 +11,7 @@ import javax.jms.TextMessage;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 
-import com.github.jochenw.icm.core.api.AbstractClassExecutionResource;
+import com.github.jochenw.icm.core.api.AbstractClassExecutionChange;
 import com.github.jochenw.icm.core.api.IcmChangeInstaller.Context;
 import com.github.jochenw.icm.core.api.cf.InjectLogger;
 import com.github.jochenw.icm.core.api.log.IcmLogger;
@@ -22,7 +22,7 @@ import com.github.jochenw.icm.core.util.Exceptions;
 
 @IcmChange(name="ActiveMQ Receiver", version="0.0.3",
              description="Receive some messages from the TestQueue, which has previously been created.")
-public class MessageReceiver extends AbstractClassExecutionResource {
+public class MessageReceiver extends AbstractClassExecutionChange {
 	@InjectLogger private IcmLogger logger;
 
 	@Override

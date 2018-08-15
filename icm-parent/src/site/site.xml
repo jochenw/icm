@@ -1,15 +1,15 @@
 <project          xmlns="http://maven.apache.org/DECORATION/1.8.0"
              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://maven.apache.org/DECORATION/1.8.0 http://maven.apache.org/xsd/decoration-1.8.0.xsd"
-                  name="RCM">
+                  name="ICM">
   <bannerLeft>
-    <name>RCM</name>
-    <href>http://jochenw.github.io/rcm</href>
+    <name>ICM</name>
+    <href>http://jochenw.github.io/icm</href>
   </bannerLeft>
   <publishDate position="right"/>
   <version position="right"/>
   <body>
-    <menu name="RCM">
+    <menu name="ICM">
       <item name="About" href="./index.html"/>
       <item name="Index" href="./concepts.html"/>
     </menu>

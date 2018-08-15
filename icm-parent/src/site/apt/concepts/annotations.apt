@@ -4,9 +4,9 @@
 
 Annotations
 
-    An annotation is a short text fragment, which provides information to RCM. If you know, what
+    An annotation is a short text fragment, which provides information to ICM. If you know, what
     {{{https://en.wikipedia.org/wiki/Java_annotation}Java annotations}} are, then you will grab the
-    idea intuitively: RCM annotations are, what Java annotations are, except that they may appear
+    idea intuitively: ICM annotations are, what Java annotations are, except that they may appear
     in arbitrary text files.
 
 * Syntax
@@ -23,7 +23,7 @@ Annotations
 @IcmChange(name="Create Table", type="sql", version="0.0.1", description="Creates the test table")
 +-----------------------
 
-    The example demonstrates an annotation, named "RcmResource", with the attributes "name", "type",
+    The example demonstrates an annotation, named "IcmChange", with the attributes "name", "type",
     "version", and "description".
 
     Another example:
@@ -36,10 +36,10 @@ Annotations
 
 * Valid annotations
 
-  The following annotations are recognized by RCM:
+  The following annotations are recognized by ICM:
 
     * The "IcmChange" annotation indicates, that a file contains a resource, which is being processed
-      by RCM. An example can be found above, other examples are available {{{../first_example.html}here}}.
+      by ICM. An example can be found above, other examples are available {{{../first_example.html}here}}.
 
       An IcmChange annotation <<must>> have the following attributes:
 
@@ -48,7 +48,7 @@ Annotations
         * The resource "type", which identifies the plugin, which is used to install the resource. The
           plugin must recognize the type, so details can be found in the plugins documentation. As of
           this writing, the following types, and the respective plugins, are available as a part of
-          RCM Core:
+          ICM Core:
 
             * "sql" - An SQL script, which contains SQL statements, that are being executed against a
                       database.

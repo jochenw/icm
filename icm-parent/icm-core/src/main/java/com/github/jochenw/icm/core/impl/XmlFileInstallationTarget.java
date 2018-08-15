@@ -37,7 +37,7 @@ import com.github.jochenw.icm.core.util.FileLocker.StreamAccessor;
 
 
 public class XmlFileInstallationTarget<V> implements IcmInstallationTarget<V> {
-	public static final String NS = "http://namespaces.github.com/jochenw/rcm/schemas/xfit/1.0.0";
+	public static final String NS = "http://namespaces.github.com/jochenw/icm/schemas/xfit/1.0.0";
 
 	public static class InstalledResource {
 		private final String name, type, version;

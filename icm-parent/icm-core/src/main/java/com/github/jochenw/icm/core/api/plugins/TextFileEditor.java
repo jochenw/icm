@@ -25,10 +25,10 @@ import com.github.jochenw.icm.core.util.Exceptions;
 import com.github.jochenw.icm.core.util.JaxbUtils;
 import com.github.jochenw.icm.core.util.Objects;
 import com.github.jochenw.icm.core.util.Strings;
-import com.github.namespaces.jochenw.rcm.core.schema.tfe._1_0.Changes;
-import com.github.namespaces.jochenw.rcm.core.schema.tfe._1_0.IndexableElement;
-import com.github.namespaces.jochenw.rcm.core.schema.tfe._1_0.Insertion;
-import com.github.namespaces.jochenw.rcm.core.schema.tfe._1_0.Replacement;
+import com.github.namespaces.jochenw.icm.core.schema.tfe._1_0.Changes;
+import com.github.namespaces.jochenw.icm.core.schema.tfe._1_0.IndexableElement;
+import com.github.namespaces.jochenw.icm.core.schema.tfe._1_0.Insertion;
+import com.github.namespaces.jochenw.icm.core.schema.tfe._1_0.Replacement;
 
 public class TextFileEditor {
 	protected static class Data {

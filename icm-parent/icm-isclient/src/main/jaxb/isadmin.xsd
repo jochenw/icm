@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema              xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           targetNamespace="http://namespaces.github.com/jochenw/icm/isclient/admin/1.0.0"
+                 xmlns:tns="http://namespaces.github.com/jochenw/icm/isclient/admin/1.0.0"
+        elementFormDefault="qualified">
+  <xs:complexType name="TAdministrableObject">
+    <xs:attribute name="action" type="tns:TAction"/>
+  </xs:complexType>
+
+  <xs:simpleType name="TAction">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="create">
+        <xs:annotation><xs:documentation>
+          Creates an object, if it doesn't yet exist. Otherwise, it's an error.
+        </xs:documentation></xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="createOrUpdate">
+        <xs:annotation><xs:documentation>
+          Creates an object, if it doesn't yet exist. Otherwise, creates it.
+        </xs:documentation></xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="createOrIgnore">
+        <xs:annotation><xs:documentation>
+          Creates an object, if it doesn't yet exist. Otherwise, ignores it.
+        </xs:documentation></xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="update">
+        <xs:annotation><xs:documentation>
+          Updates an object, if it is already existing. Otherwise, it's an error.
+        </xs:documentation></xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="updateOrIgnore">
+        <xs:annotation><xs:documentation>
+          Updates an object, if it is already existing. Otherwise, ignores it.
+        </xs:documentation></xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="drop">
+        <xs:annotation><xs:documentation>
+          Deletes an object, if it is already existing. Otherwise, it's an error.
+        </xs:documentation></xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="dropOrIgnore">
+        <xs:annotation><xs:documentation>
+          Deletes an object, if it is already existing. Otherwise, ignores it.
+        </xs:documentation></xs:annotation>
+      </xs:enumeration>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:complexType name="TDriverAlias">
+    <xs:complexContent>
+      <xs:extension base="tns:TAdministrableObject">
+        <xs:attribute name="alias" type="xs:string" use="required">
+          <xs:annotation><xs:documentation>
+            The driver aliases name. (Required for all actions.)
+          </xs:documentation></xs:annotation>
+        </xs:attribute>
+        <xs:attribute name="description" type="xs:string" use="optional">
+          <xs:annotation><xs:documentation>
+            The driver aliases descriptions. (Required for all "create" actions, and for "update", ignored for "drop".)
+          </xs:documentation></xs:annotation>
+        </xs:attribute>
+        <xs:attribute name="driverClassName" type="xs:string" use="optional">
+          <xs:annotation><xs:documentation>
+            The driver aliases class name. (Required for all "create" actions, and for "update", ignored for "drop".)
+          </xs:documentation></xs:annotation>
+        </xs:attribute>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:element name="isAdministrableObjects">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="driverAlias" type="tns:TDriverAlias"/>
+      </xs:choice>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>
