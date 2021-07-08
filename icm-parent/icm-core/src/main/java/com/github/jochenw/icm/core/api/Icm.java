@@ -14,13 +14,12 @@ import java.util.Set;
 import java.util.function.Consumer;
 
 import javax.inject.Inject;
-import javax.inject.Named;
 
+import com.github.jochenw.afw.core.inject.ComponentFactoryBuilder.Binder;
+import com.github.jochenw.afw.core.inject.ComponentFactoryBuilder.Module;
+import com.github.jochenw.afw.core.inject.IComponentFactory;
 import com.github.jochenw.icm.core.api.IcmChangeInstaller.Context;
 import com.github.jochenw.icm.core.api.IcmPluginContext.Committable;
-import com.github.jochenw.icm.core.api.cf.ComponentFactory;
-import com.github.jochenw.icm.core.api.cf.ComponentFactoryBuilder.Binder;
-import com.github.jochenw.icm.core.api.cf.ComponentFactoryBuilder.Module;
 import com.github.jochenw.icm.core.api.cf.InjectLogger;
 import com.github.jochenw.icm.core.api.log.IcmLogger;
 import com.github.jochenw.icm.core.api.log.IcmLoggerFactory;
@@ -57,15 +56,17 @@ public class Icm<V extends Object> implements Runnable {
 		}
 	}
 
-	@Inject private ComponentFactory componentFactory;
+	@Inject private IComponentFactory componentFactory;
 	@Inject private IcmLoggerFactory loggerFactory;
-	@Inject @Named(value="com.github.jochenw.icm.core.api.IcmChangeRepository") private List<IcmChangeRepository> repositories;
-	@Inject @Named(value="com.github.jochenw.icm.core.api.IcmChangeInfoProvider") private List<IcmChangeInfoProvider> infoProviders;
-	@Inject @Named(value="com.github.jochenw.icm.core.api.IcmContextProvider") private List<IcmContextProvider> contextProviders;
-	@Inject private IcmInstallationTarget<V> installationTarget;
-	@Inject @Named(value="com.github.jochenw.icm.core.api.IcmChangeInstaller") private List<IcmChangeInstaller> deployers;
+	@Inject private List<IcmChangeRepository> repositories;
+	@Inject private List<IcmChangeInfoProvider> infoProviders;
+	@Inject private List<IcmContextProvider> contextProviders;
+	@SuppressWarnings("rawtypes")
+	@Inject private IcmInstallationTarget installationTarget;
+	@Inject private List<IcmChangeInstaller> deployers;
 	@InjectLogger private IcmLogger logger; 
-	@Inject private IcmChangeNumberHandler<V> versionProvider;
+	@SuppressWarnings("rawtypes")
+	@Inject private IcmChangeNumberHandler versionProvider;
 
 	@Override
 	public void run() {
@@ -145,8 +146,10 @@ public class Icm<V extends Object> implements Runnable {
 			}
 			boolean remove = true;
 			if (info != null) {
+				@SuppressWarnings("unchecked")
+				final IcmChangeNumberHandler<V> versionProv = (IcmChangeNumberHandler<V>) versionProvider;
 				final ResourceKey key = new ResourceKey(info.getTitle(), info.getType(),
-						versionProvider.asString(info.getVersion()));
+						versionProv.asString(info.getVersion()));
 				if (keys.contains(key)) {
 					logger.warn("Ignoring duplicate resource key: name=" + info.getTitle()
 					            + ", type=" + info.getType() + ", version="
@@ -165,7 +168,7 @@ public class Icm<V extends Object> implements Runnable {
 						+ ", uri=" + dr.getResource().getUri());
 					}
 					if (installer != null) {
-						if (installationTarget.isInstalled(pContext, info)) {
+						if (getInstallationTarget().isInstalled(pContext, info)) {
 							logger.debug("Ignoring already installed resource: " + key);
 						} else {
 							logger.debug("Using installer " + installer.getClass().getName() + " for resource: " + key);
@@ -292,7 +295,7 @@ public class Icm<V extends Object> implements Runnable {
 				context.setRepository(resource.getRepository());
 				final IcmChangeInstaller installer = resource.getInstaller();
 				installer.install(context);
-				installationTarget.add(context, info);
+				getInstallationTarget().add(context, info);
 			} catch (Throwable t) {
 				th = t;
 				break;
@@ -333,8 +336,8 @@ public class Icm<V extends Object> implements Runnable {
 		final IcmBuilder<V> builder = new IcmBuilder<V>(pVersionClass, pVersionProvider);
 		final Module module = new Module() {
 			@Override
-			public void bind(Binder pBinder) {
-				pBinder.bindInstance(IcmChangeNumberHandler.class, pVersionProvider);
+			public void configure(Binder pBinder) {
+				pBinder.bind(IcmChangeNumberHandler.class).toInstance(pVersionProvider);
 			}
 		};
 		builder.getComponentFactoryBuilder().module(module);
@@ -352,7 +355,9 @@ public class Icm<V extends Object> implements Runnable {
 		installationTarget = pTarget;
 	}
 	public IcmInstallationTarget<V> getInstallationTarget() {
-		return installationTarget;
+		@SuppressWarnings("unchecked")
+		final IcmInstallationTarget<V> iit = (IcmInstallationTarget<V>) installationTarget;
+		return iit;
 	}
 	void setResourceRepositories(List<IcmChangeRepository> pRepositories) {
 		repositories = pRepositories;
@@ -360,10 +365,10 @@ public class Icm<V extends Object> implements Runnable {
 	public List<IcmChangeRepository> getResourceRepositories() {
 		return repositories;
 	}
-	void setComponentFactory(ComponentFactory pFactory) {
+	void setComponentFactory(IComponentFactory pFactory) {
 		componentFactory = pFactory;
 	}
-	public ComponentFactory getComponentFactory() {
+	public IComponentFactory getComponentFactory() {
 		return componentFactory;
 	}
 	void setLoggerFactory(IcmLoggerFactory pLoggerFactory) {

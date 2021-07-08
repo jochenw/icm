@@ -23,7 +23,8 @@ import com.github.jochenw.icm.core.util.FileAnnotationScanner.Annotation;
 @ResourceInfoProvider
 public class AnnotationBasedResourceInfoProvider implements IcmChangeInfoProvider {
 	@InjectLogger private IcmLogger logger;
-	@Inject private IcmChangeNumberHandler<?> versionProvider;
+	@SuppressWarnings("rawtypes")
+	@Inject private IcmChangeNumberHandler versionProvider;
 
 
 	@Override
@@ -57,7 +58,8 @@ public class AnnotationBasedResourceInfoProvider implements IcmChangeInfoProvide
 						} else {
 							try {
 								@SuppressWarnings("unchecked")
-								final T v = (T) versionProvider.asVersion(version);
+								final IcmChangeNumberHandler<T> vp = (IcmChangeNumberHandler<T>) versionProvider;
+								final T v = vp.asVersion(version);
 								return new IcmChangeInfo<T>() {
 									@Override
 									public String getTitle() {

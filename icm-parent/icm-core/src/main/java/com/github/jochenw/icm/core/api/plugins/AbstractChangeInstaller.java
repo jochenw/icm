@@ -2,18 +2,18 @@ package com.github.jochenw.icm.core.api.plugins;
 
 import javax.inject.Inject;
 
+import com.github.jochenw.afw.core.inject.IComponentFactory;
 import com.github.jochenw.icm.core.api.IcmChangeInstaller;
-import com.github.jochenw.icm.core.api.cf.ComponentFactory;
 import com.github.jochenw.icm.core.api.cf.InjectLogger;
 import com.github.jochenw.icm.core.api.log.IcmLogger;
 import com.github.jochenw.icm.core.api.prop.IcmPropertyProvider;
 
 public abstract class AbstractChangeInstaller implements IcmChangeInstaller {
-	@Inject private ComponentFactory componentFactory;
+	@Inject private IComponentFactory componentFactory;
 	@Inject private IcmPropertyProvider propertyProvider;
 	@InjectLogger private IcmLogger logger;
 
-	protected ComponentFactory getComponentFactory() {
+	protected IComponentFactory getComponentFactory() {
 		return componentFactory;
 	}
 

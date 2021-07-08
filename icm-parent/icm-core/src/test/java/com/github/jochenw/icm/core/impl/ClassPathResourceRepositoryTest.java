@@ -8,31 +8,26 @@ import java.util.function.Predicate;
 
 import org.junit.Test;
 
+import com.github.jochenw.afw.core.inject.ComponentFactoryBuilder.Binder;
+import com.github.jochenw.afw.core.inject.ComponentFactoryBuilder.Module;
+import com.github.jochenw.afw.core.inject.IComponentFactory;
+import com.github.jochenw.afw.core.inject.simple.SimpleComponentFactoryBuilder;
 import com.github.jochenw.icm.core.Tests;
 import com.github.jochenw.icm.core.api.DefaultIcmChangeNumberHandler;
+import com.github.jochenw.icm.core.api.IcmBuilder;
 import com.github.jochenw.icm.core.api.IcmChangeNumber;
 import com.github.jochenw.icm.core.api.IcmChangeNumberHandler;
 import com.github.jochenw.icm.core.api.IcmChangeResource;
-import com.github.jochenw.icm.core.api.cf.ComponentFactory;
-import com.github.jochenw.icm.core.api.cf.ComponentFactoryBuilder;
-import com.github.jochenw.icm.core.api.cf.ComponentFactoryBuilder.Binder;
-import com.github.jochenw.icm.core.api.cf.ComponentFactoryBuilder.Module;
 import com.github.jochenw.icm.core.api.log.IcmLogger;
 import com.github.jochenw.icm.core.api.log.IcmLoggerFactory;
-import com.github.jochenw.icm.core.impl.ClassPathResourceRepository;
 import com.github.jochenw.icm.core.impl.log.SimpleLoggerFactory;
 
 public class ClassPathResourceRepositoryTest {
 	@Test
 	public void test() throws Exception {
-		final ComponentFactory cf = newComponentFactory();
+		final IComponentFactory cf = newComponentFactory();
 		final Predicate<String> filter = (s) -> s.endsWith(".class");
-		final ClassPathResourceRepository<IcmChangeNumber> cpr = new ClassPathResourceRepository<IcmChangeNumber>(filter, StandardCharsets.UTF_8) {
-			@Override
-			protected void accept(Consumer<IcmChangeResource> pConsumer, IcmChangeResource pResource) {
-				pConsumer.accept(pResource);
-			}
-		};
+		final ClassPathResourceRepository<IcmChangeNumber> cpr = new ClassPathResourceRepository<IcmChangeNumber>(filter, StandardCharsets.UTF_8);
 		cf.init(cpr);
 		
 		final List<IcmChangeResource> resources = new ArrayList<>();
@@ -43,14 +38,15 @@ public class ClassPathResourceRepositoryTest {
 		Tests.assertResource(resources, "ClassPathResourceRepositoryTest.class", "com/github/jochenw/icm/core/impl/ClassPathResourceRepositoryTest.class");
 	}
 
-	public static ComponentFactory newComponentFactory() {
-		final ComponentFactoryBuilder cbf = new ComponentFactoryBuilder();
+	public static IComponentFactory newComponentFactory() {
+		final SimpleComponentFactoryBuilder cbf = new SimpleComponentFactoryBuilder();
+		cbf.onTheFlyBinder(new IcmBuilder.IcmOnTheFlyBinder());
 		final Module module = new Module() {
 			@Override
-			public void bind(Binder pBinder) {
-				pBinder.bindInstance(IcmLoggerFactory.class, new SimpleLoggerFactory(System.err, IcmLogger.Level.DEBUG));
-				pBinder.bindInstance(IcmChangeNumberHandler.class, new DefaultIcmChangeNumberHandler());
-				pBinder.bindInstance(ClassLoader.class, Thread.currentThread().getContextClassLoader());;
+			public void configure(Binder pBinder) {
+				pBinder.bind(IcmLoggerFactory.class).toInstance(new SimpleLoggerFactory(System.err, IcmLogger.Level.DEBUG));
+				pBinder.bind(IcmChangeNumberHandler.class).toInstance(new DefaultIcmChangeNumberHandler());
+				pBinder.bind(ClassLoader.class).toInstance(Thread.currentThread().getContextClassLoader());;
 			}
 		};
 		return cbf.module(module).build();

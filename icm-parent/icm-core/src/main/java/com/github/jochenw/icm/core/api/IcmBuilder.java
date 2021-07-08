@@ -3,6 +3,10 @@ package com.github.jochenw.icm.core.api;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStream;
+import java.lang.annotation.Annotation;
+import java.lang.reflect.AnnotatedElement;
+import java.lang.reflect.Field;
+import java.lang.reflect.Method;
 import java.net.URL;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
@@ -13,10 +17,18 @@ import java.util.Objects;
 import java.util.Properties;
 import java.util.function.Predicate;
 
-import com.github.jochenw.icm.core.api.cf.ComponentFactory;
-import com.github.jochenw.icm.core.api.cf.ComponentFactoryBuilder;
-import com.github.jochenw.icm.core.api.cf.ComponentFactoryBuilder.Binder;
-import com.github.jochenw.icm.core.api.cf.ComponentFactoryBuilder.Module;
+import javax.inject.Provider;
+
+import com.github.jochenw.afw.core.inject.ComponentFactoryBuilder.Binder;
+import com.github.jochenw.afw.core.inject.ComponentFactoryBuilder.Module;
+import com.github.jochenw.afw.core.inject.DefaultOnTheFlyBinder;
+import com.github.jochenw.afw.core.inject.IComponentFactory;
+import com.github.jochenw.afw.core.inject.LogInject;
+import com.github.jochenw.afw.core.inject.OnTheFlyBinder;
+import com.github.jochenw.afw.core.inject.Types;
+import com.github.jochenw.afw.core.inject.simple.SimpleComponentFactoryBuilder;
+import com.github.jochenw.afw.core.util.Strings;
+import com.github.jochenw.icm.core.api.cf.InjectLogger;
 import com.github.jochenw.icm.core.api.log.IcmLogger;
 import com.github.jochenw.icm.core.api.log.IcmLoggerFactory;
 import com.github.jochenw.icm.core.api.log.IcmLogger.Level;
@@ -47,9 +59,27 @@ import com.github.jochenw.icm.core.util.Exceptions;
 
 
 public class IcmBuilder<V extends Object> extends AbstractBuilder {
+	public static final class IcmOnTheFlyBinder extends DefaultOnTheFlyBinder {
+		@Override
+		protected <O> Provider<O> getProviderByAnnotation(IComponentFactory pCf, Field pField, Annotation pAnnotation) {
+			if (pAnnotation instanceof InjectLogger) {
+				final Provider<Object> prov = () -> {
+					final IcmLoggerFactory ilf = pCf.requireInstance(IcmLoggerFactory.class);
+					return ilf.getLogger(pField.getDeclaringClass());
+				};
+				@SuppressWarnings("unchecked")
+				final Provider<O> provider = (Provider<O>) prov;
+				return provider;
+			} else {
+				return super.getProviderByAnnotation(pCf, pField, pAnnotation);
+			}
+		}
+	}
+
 	private final Class<V> versionClass;
-	private final IcmChangeNumberHandler<V> versionProvider;
-	private final ComponentFactoryBuilder componentFactoryBuilder = new ComponentFactoryBuilder();
+	@SuppressWarnings("rawtypes")
+	private final IcmChangeNumberHandler versionProvider;
+	private final SimpleComponentFactoryBuilder componentFactoryBuilder = new SimpleComponentFactoryBuilder();
 
 	private ClassLoader classLoader;
 	private PluginRepository pluginRepository;
@@ -103,29 +133,50 @@ public class IcmBuilder<V extends Object> extends AbstractBuilder {
 		}
 		final Module module = new Module() {
 			@Override
-			public void bind(Binder pBinder) {
-				pBinder.bindClass(Icm.class, Icm.class);
-				pBinder.bindInstance(IcmLoggerFactory.class, loggerFactory);
-				pBinder.bindInstance(IcmPropertyProvider.class, propertyProvider);
-				pBinder.bindInstance(IcmInstallationTarget.class, target);
-				pBinder.bindInstance(ClassLoader.class, classLoader);
-				pBinder.bindClass(TextFileEditor.class, TextFileEditor.class);
-				pBinder.bindList(repositories, IcmChangeRepository.class);
-				pBinder.bindList(resourceInfoProviders, IcmChangeInfoProvider.class);
-				pBinder.bindList(resourceInstallers, IcmChangeInstaller.class);
-				pBinder.bindList(contextProviders, IcmContextProvider.class);
-				pBinder.bindClass(SqlScriptReader.class, DefaultSqlScriptReader.class);
-				pBinder.bindClass(SqlStatementExecutor.class, DefaultSqlStatementExecutor.class);
-				pBinder.bindClass(JdbcConnectionProvider.class, DefaultJdbcConnectionProvider.class);
-				pBinder.bindClass(CommandExecutor.class, DefaultCommandExecutor.class);
-				pBinder.bindClass(ExpressionEvaluator.class, DefaultExpressionEvaluator.class);
-				pBinder.bindClass(Interpolator.class, DefaultInterpolator.class);
-				pBinder.bindInstance(Properties.class, getProperties());
-				pBinder.bindInstance(IcmLoggerFactory.class, getLoggerFactory());
-				pBinder.bindInstance(SqlAdapter.class, DefaultSqlAdapter.class);
+			public void configure(Binder pBinder) {
+				pBinder.bind(Icm.class);
+				pBinder.bind(IcmLoggerFactory.class).toInstance(loggerFactory);
+				pBinder.bind(IcmPropertyProvider.class).toInstance(propertyProvider);
+				pBinder.bind(IcmInstallationTarget.class).toInstance(target);
+				pBinder.bind(ClassLoader.class).toInstance(classLoader);
+				pBinder.bind(TextFileEditor.class);
+				final Types.Type<List<IcmChangeRepository>> icmChangeRepositoryListType
+					= new Types.Type<List<IcmChangeRepository>>() {};
+				pBinder.bind(icmChangeRepositoryListType).toInstance(repositories);
+				final Types.Type<List<IcmChangeInfoProvider>> icmChangeInfoProviderListType
+					= new Types.Type<List<IcmChangeInfoProvider>>() {};
+				pBinder.bind(icmChangeInfoProviderListType).toInstance(resourceInfoProviders);
+				final Types.Type<List<IcmChangeInstaller>> icmChangeInstallerListType
+					= new Types.Type<List<IcmChangeInstaller>>() {};
+				pBinder.bind(icmChangeInstallerListType).toInstance(resourceInstallers);
+				final Types.Type<List<IcmContextProvider>> icmContextProviderListType
+					= new Types.Type<List<IcmContextProvider>>() {};
+				pBinder.bind(icmContextProviderListType).toInstance(contextProviders);
+				pBinder.bind(SqlScriptReader.class).to(DefaultSqlScriptReader.class);
+				pBinder.bind(SqlStatementExecutor.class).to(DefaultSqlStatementExecutor.class);
+				pBinder.bind(JdbcConnectionProvider.class).to(DefaultJdbcConnectionProvider.class);
+				pBinder.bind(CommandExecutor.class).to(DefaultCommandExecutor.class);
+				pBinder.bind(ExpressionEvaluator.class).to(DefaultExpressionEvaluator.class);
+				pBinder.bind(Interpolator.class).to(DefaultInterpolator.class);
+				pBinder.bind(Properties.class).toInstance(getProperties());
+				pBinder.bind(IcmLoggerFactory.class).toInstance(getLoggerFactory());
+				pBinder.bind(SqlAdapter.class).to(DefaultSqlAdapter.class);
+				pBinder.bind(IcmChangeNumberHandler.class).toInstance(versionProvider);
 			}
 		};
-		final ComponentFactory componentFactory = newComponentFactory(module);
+		final IComponentFactory componentFactory = newComponentFactory(module);
+		for (IcmChangeRepository repo : repositories) {
+			componentFactory.init(repo);
+		}
+		for (IcmChangeInfoProvider prov : resourceInfoProviders) {
+			componentFactory.init(prov);
+		}
+		for (IcmChangeInstaller prov : resourceInstallers) {
+			componentFactory.init(prov);
+		}
+		for (IcmContextProvider prov : contextProviders) {
+			componentFactory.init(prov);
+		}
 		@SuppressWarnings("unchecked")
 		final Icm<V> icm = (Icm<V>) componentFactory.requireInstance(Icm.class);
 		return icm;
@@ -145,13 +196,21 @@ public class IcmBuilder<V extends Object> extends AbstractBuilder {
 		return new SimpleLoggerFactory(System.out, Level.DEBUG);
 	}
 	
-	protected ComponentFactory newComponentFactory(Module pModule) {
-		return getComponentFactoryBuilder().module(pModule).modules(modules).build();
+	protected IComponentFactory newComponentFactory(Module pModule) {
+		return getComponentFactoryBuilder()
+				.onTheFlyBinder(newOnTheFlyBinder())
+				.module(pModule)
+				.modules(modules)
+				.build();
 	}
 	
 	public Class<V> getVersionClass() { return versionClass; }
-	public IcmChangeNumberHandler<V> getVersionProvider() { return versionProvider; }
-	public ComponentFactoryBuilder getComponentFactoryBuilder() { return componentFactoryBuilder; }
+	public IcmChangeNumberHandler<V> getVersionProvider() {
+		@SuppressWarnings("unchecked")
+		final IcmChangeNumberHandler<V> vp = (IcmChangeNumberHandler<V>) versionProvider;
+		return vp;
+	}
+	public SimpleComponentFactoryBuilder getComponentFactoryBuilder() { return componentFactoryBuilder; }
 
 	public IcmBuilder<V> module(Module pModule) {
 		Objects.requireNonNull(pModule, "Module");
@@ -341,5 +400,9 @@ public class IcmBuilder<V extends Object> extends AbstractBuilder {
 			props.put("os.unknown", "true");
 		}
 		return props;
+	}
+
+	protected OnTheFlyBinder newOnTheFlyBinder() {
+		return new IcmOnTheFlyBinder();
 	}
 }

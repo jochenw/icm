@@ -2,16 +2,16 @@ package com.github.jochenw.icm.core.impl.plugins;
 
 import javax.inject.Inject;
 
+import com.github.jochenw.afw.core.inject.IComponentFactory;
 import com.github.jochenw.icm.core.api.IcmChangeInfo;
 import com.github.jochenw.icm.core.api.IcmClassExecutionChange;
-import com.github.jochenw.icm.core.api.cf.ComponentFactory;
 import com.github.jochenw.icm.core.api.plugins.AbstractChangeInstaller;
 import com.github.jochenw.icm.core.api.plugins.ResourceInstaller;
 import com.github.jochenw.icm.core.util.Exceptions;
 
 @ResourceInstaller
 public class ClassExecutor extends AbstractChangeInstaller {
-	@Inject private ComponentFactory componentFactory;
+	@Inject private IComponentFactory componentFactory;
 	@Inject private ClassLoader classLoader;
 
 	@Override

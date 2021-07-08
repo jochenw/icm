@@ -2,11 +2,11 @@ package com.github.jochenw.icm.core.api;
 
 import javax.inject.Inject;
 
-import com.github.jochenw.icm.core.api.IcmClassExecutionChange;
-import com.github.jochenw.icm.core.api.cf.ComponentFactory;
+import com.github.jochenw.afw.core.inject.IComponentFactory;
+
 
 public abstract class AbstractClassExecutionChange implements IcmClassExecutionChange {
-	@Inject ComponentFactory componentFactory;
+	@Inject IComponentFactory componentFactory;
 
-	public ComponentFactory getComponentFactory() { return componentFactory; }
+	public IComponentFactory getComponentFactory() { return componentFactory; }
 }

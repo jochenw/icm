@@ -11,16 +11,16 @@ import java.util.function.Predicate;
 
 import org.junit.Test;
 
+import com.github.jochenw.afw.core.inject.IComponentFactory;
+import com.github.jochenw.afw.core.inject.simple.SimpleComponentFactory;
 import com.github.jochenw.icm.core.api.Icm;
 import com.github.jochenw.icm.core.api.IcmBuilder;
 import com.github.jochenw.icm.core.api.IcmChangeInfo;
 import com.github.jochenw.icm.core.api.IcmChangeNumber;
 import com.github.jochenw.icm.core.api.IcmInstallationTarget;
-import com.github.jochenw.icm.core.api.cf.ComponentFactory;
 import com.github.jochenw.icm.core.api.log.IcmLoggerFactory;
 import com.github.jochenw.icm.core.impl.ClassPathResourceRepository;
 import com.github.jochenw.icm.core.impl.XmlFileInstallationTarget;
-import com.github.jochenw.icm.core.impl.cf.SimpleComponentFactory;
 import com.github.jochenw.icm.core.impl.log.Log4j2LoggerFactory;
 import com.github.jochenw.icm.it.test1.FooDataValidator;
 import com.github.jochenw.icm.it.test2.MessageReceiver;
@@ -114,7 +114,7 @@ public class IcmTests {
 		return newIcm(pTestId, null, null);
 	}
 
-	protected Icm<IcmChangeNumber> newIcm(String pTestId, Class<? extends ComponentFactory> pComponentFactoryClass, Consumer<IcmBuilder<IcmChangeNumber>> pBuildParticipant) {
+	protected Icm<IcmChangeNumber> newIcm(String pTestId, Class<? extends IComponentFactory> pComponentFactoryClass, Consumer<IcmBuilder<IcmChangeNumber>> pBuildParticipant) {
 		final IcmBuilder<IcmChangeNumber> icmb = Icm.builder();
 		if (pComponentFactoryClass != null) {
 			icmb.getComponentFactoryBuilder().componentFactoryClass(pComponentFactoryClass);

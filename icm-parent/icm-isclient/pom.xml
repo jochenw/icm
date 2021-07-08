@@ -11,7 +11,7 @@
   	<dependency>
   		<groupId>com.wm</groupId>
   		<artifactId>wm-isclient</artifactId>
-  		<version>9.8.0.0000-0247</version>
+  		<version>9.9.0.0000-0102</version>
   		<scope>provided</scope>
   	</dependency>
   	<dependency>
@@ -28,7 +28,7 @@
   	<dependency>
   		<groupId>com.wm</groupId>
   		<artifactId>wm-isserver</artifactId>
-  		<version>9.8.0.0000-0247</version>
+  		<version>9.9.0.0000-0102</version>
   		<scope>provided</scope>
   	</dependency>
   </dependencies>

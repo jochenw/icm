@@ -5,15 +5,15 @@ import java.util.Map;
 
 import javax.inject.Inject;
 
+import com.github.jochenw.afw.core.inject.IComponentFactory;
 import com.github.jochenw.icm.core.api.IcmContextProvider;
 import com.github.jochenw.icm.core.api.IcmPluginContext;
-import com.github.jochenw.icm.core.api.cf.ComponentFactory;
 import com.github.jochenw.icm.core.util.Exceptions;
 
 
 @ContextProvider
 public abstract class AbstractContextProvider<C extends LifeCycleAwareCommittable> implements IcmContextProvider {
-	@Inject private ComponentFactory componentFactory;
+	@Inject private IComponentFactory componentFactory;
 	private Map<String,C> contextMap = new HashMap<>();
 
 	public abstract String getContextId();
@@ -29,7 +29,7 @@ public abstract class AbstractContextProvider<C extends LifeCycleAwareCommittabl
 		}
 	}
 
-	public ComponentFactory getComponentFactory()  {
+	public IComponentFactory getComponentFactory()  {
 		return componentFactory;
 	}
 	

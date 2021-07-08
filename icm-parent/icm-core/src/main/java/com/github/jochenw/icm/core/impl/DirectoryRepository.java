@@ -8,6 +8,8 @@ import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.util.function.Consumer;
 
+import javax.inject.Inject;
+
 import com.github.jochenw.icm.core.api.IcmChangeResource;
 import com.github.jochenw.icm.core.api.IcmChangeRepository;
 import com.github.jochenw.icm.core.api.cf.InjectLogger;
@@ -43,6 +45,7 @@ public class DirectoryRepository implements IcmChangeRepository {
 		}
 	}
 
+	private @Inject ClassLoader classLoader;
 	@InjectLogger IcmLogger logger;
 	private final File directory;
 	private final Charset charset;

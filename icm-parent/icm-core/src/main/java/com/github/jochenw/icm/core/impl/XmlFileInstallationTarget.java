@@ -62,7 +62,8 @@ public class XmlFileInstallationTarget<V> implements IcmInstallationTarget<V> {
 		}
 	}
 	private final File file;
-	@Inject IcmChangeNumberHandler<V> versionProvider;
+	@SuppressWarnings("rawtypes")
+	@Inject IcmChangeNumberHandler versionProvider;
 
 	public XmlFileInstallationTarget(File pFile) {
 		file = pFile;
@@ -83,9 +84,11 @@ public class XmlFileInstallationTarget<V> implements IcmInstallationTarget<V> {
 						pis.unread(firstByte);
 						final List<InstalledResource> resources = getResources(pis);
 						for (InstalledResource ir : resources) {
+							@SuppressWarnings("unchecked")
+							final IcmChangeNumberHandler<V> icnh = (IcmChangeNumberHandler<V>) versionProvider;
 							if (ir.getName().equals(pResource.getTitle())  &&
 								ir.getType().equals(pResource.getType())  &&
-								ir.getVersion().equals(versionProvider.asString(pResource.getVersion()))) {
+								ir.getVersion().equals(icnh.asString(pResource.getVersion()))) {
 								return Boolean.TRUE;
 							}
 						}
@@ -129,7 +132,10 @@ public class XmlFileInstallationTarget<V> implements IcmInstallationTarget<V> {
 							resources.addAll(getResources(pis));
 						}
 					}
-					resources.add(new InstalledResource(pResource.getTitle(), pResource.getType(), versionProvider.asString(pResource.getVersion())));
+					
+					@SuppressWarnings("unchecked")
+					final IcmChangeNumberHandler<V> icnh = (IcmChangeNumberHandler<V>) versionProvider;
+					resources.add(new InstalledResource(pResource.getTitle(), pResource.getType(), icnh.asString(pResource.getVersion())));
 					try (OutputStream out = pAcc.getOutputStream()) {
 						writeResources(resources, out);
 					}
